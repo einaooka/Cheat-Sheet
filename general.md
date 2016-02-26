@@ -14,7 +14,7 @@
 
 ## Packages
 
-##### Custom
+Custom
 ```r
 library(tea.eo.plots)
 library(tea.color)
@@ -22,7 +22,7 @@ library(tea.datetime)
 library(tea.utilities)
 ```
 
-##### Often Used
+Often Used
 ```r
 library(reshape)
 library(RCurl)
@@ -31,7 +31,7 @@ library(leaps) # subset regression
 library(zoo)
 ```
 
-##### set directory
+set directory
 ```r
 setwd("C:/Documents and Settings/murphyeo/Desktop")
 ```
@@ -67,13 +67,16 @@ as.POSIXct(strptime(, "%m/%d/%Y %I:%M:00 %p"))
 ```
 
 **Note**:
-Off- Peak Hours (HE): 1-6, 23-24
-On-Peak Hours (HE):7-22 
+* Off- Peak Hours (HE): 1-6, 23-24
+* On-Peak Hours (HE):7-22 
 
 ## Plots and Layouts
 ```r
 help(package = "tea.eo.plots")
+```
 
+Layouts
+```r
 plot.new() # start a new plot
 par(new=TRUE) # Overlay another plot
 
@@ -94,8 +97,10 @@ layout(matrix(c(1:2)),heights=c(4,1))
 # modyfy plot borders
 plot(, axes=FALSE)
 box(fg = gray(0.5)); axis(c(1,2), fg = gray(0.5), col=gray(0.5))
+```
 
-# Legend
+Legend
+```r
 legend("topleft"
        , inset=.05
        , title="title"
@@ -108,6 +113,14 @@ legend("topleft"
        , horiz=FALSE
        , border=colorBWArray(0.8)
        , bg="white")
+       
+```
+
+Plotting functions
+```r
+
+# returns plot ranges
+par("usr")
 
 # Draw grid lines
 DrawHLines(ylim)
@@ -136,16 +149,12 @@ PlotHistograms(list("x1"=x1, "x2"=x2), cols.f = list(red.f, blue.f), qs=c(0.05, 
 PlotTable(BasisDiff.df, col.f=orange.f)
 PlotTable(BasisDiff.df, col.f=blue.f, colnames=c("Month", "On-Peak", "Off-Peak"))
 
-# returns plot ranges
-par("usr")
-
 # bar plot example
 midpts <- barplot(height, names.arg
                   , col=CA(2,0.4), border=CA(2,1), ylab="", ylim=c(0,1800))
 text(x=midpts, y=height, c("text", "text"), pos=1, col=CA(2,1))
 box()
 ```
-
 
 ## Manipulate Data
 
@@ -199,12 +208,18 @@ reshape(data.df # data frame
         , timevar = "HE"   # New column names for the label (original coliumn names)
         , direction = "long")
 melt(data)
+```
 
-### Fill in all missing data by liner interpolation or previous values
-na.approx( , na.rm=FALSE)
+NA manipulation
+```r
+library(zoo)
+na.approx( , na.rm=FALSE) # Fill in all missing data by liner interpolation or previous values
 na.locf(, na.rm = FALSE) # Last observation carried forward
-na.spline( , na.rm=FALSE)
-na.zero()
+na.spline( , na.rm=FALSE) # cubic spline interpolation
+na.zero() # replace by zero. 
+```
+
+```r
 
 # Remove objects
 rm(list=ls())
@@ -231,25 +246,21 @@ saveRDS(df, paste0("filename", Sys.Date(), ".rds"))
 
 ## Interactive Java Plots
 
+**Leaflet** -- Map coordinates on google map
 ```r
-# Map coordinates on google map
 library(leaflet)
 leaflet(df) %>% cast
 addTiles() %>% 
   addCircles(~Longitude, ~Latitude, color=~color)
+```
 
-# Interactive Time Series Plot
+**dygraphs** - Interactive Time Series Plot
+```r
 library(dygraphs)
 library(xts)
 x.ts <- as.xts(data.df[,"Sumas"], order.by = data.df$Date)
 dygraph(x.ts, main = "Sumas") %>% 
   dyRangeSelector(dateWindow = c(data.df$Date[1], Sys.Date()))
-
-# Data Table
-library(DT)
-datatable(data.df, options = list(pageLength = 20)
-          , colnames = colnames(data.df)
-          , rownames = FALSE)
 ```
 
 ## multicore run
@@ -265,13 +276,10 @@ r <- foreach(icount(trials), .combine=cbind) %dopar% {
 }
 ```
 
-
 ## Colors
 ```r
 rainbow.f(1, 0.5)
 gray.f(0.5)
-
-# Individual Colors
 red.f(0.5)	
 orange.f(0.5)
 lightgreen.f(0.5)
@@ -312,4 +320,4 @@ install_github("einaooka/tea.eo.plots")
 install_github("einaooka/tea.color")
 install_github("einaooka/tea.datetime")
 install_github("einaooka/tea.utilities")
-```r
+```

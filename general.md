@@ -1,5 +1,17 @@
 #Useful R Codes
 
+#### Table of Contents
+1. [Packages](#packages)
+2. [Date Time Manipulation](#date-time-manipulation)
+3. [Plots and Layouts](#plots-and-layouts)
+4. [Manipulate Data](#manipulate-data)
+5. [Interactive Java Plots](#interactive-java-plots)
+6. [multicore run](#multicore-run)
+7. [Colors](#colors)
+8. [Expression](#expression)
+9. [Develop Packages](#develop-packages)
+
+
 ## Packages
 
 ##### Custom

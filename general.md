@@ -7,7 +7,6 @@
 library(tea.eo.plots)
 library(tea.color)
 library(tea.datetime)
-library(reshape)
 library(tea.utilities)
 ```
 
@@ -59,10 +58,8 @@ as.POSIXct(strptime(, "%m/%d/%Y %I:%M:00 %p"))
 Off- Peak Hours (HE): 1-6, 23-24
 On-Peak Hours (HE):7-22 
 
-##################################################################################
-# Plots and Layouts (Plot.r)
-##################################################################################
-
+## Plots and Layouts
+```r
 help(package = "tea.eo.plots")
 
 plot.new() # start a new plot
@@ -135,11 +132,12 @@ midpts <- barplot(height, names.arg
                   , col=CA(2,0.4), border=CA(2,1), ylab="", ylim=c(0,1800))
 text(x=midpts, y=height, c("text", "text"), pos=1, col=CA(2,1))
 box()
+```
 
-##################################################################################
-# Manipulate Data
-##################################################################################
 
+## Manipulate Data
+
+```r
 help(package = "tea.utilities")
 
 # Import data 
@@ -217,11 +215,11 @@ isBetween(as.Date("2012-1-1"), startDate, endDate)
 
 # save r-object
 saveRDS(df, paste0("filename", Sys.Date(), ".rds"))
+```
 
-## =========================================
 ## Interactive Java Plots
-## =========================================
 
+```r
 # Map coordinates on google map
 library(leaflet)
 leaflet(df) %>% cast
@@ -240,11 +238,11 @@ library(DT)
 datatable(data.df, options = list(pageLength = 20)
           , colnames = colnames(data.df)
           , rownames = FALSE)
+```
 
-## =========================================
 ## multicore run
-## =========================================
 
+```r
 library(foreach)
 library(doParallel)
 cl <- makeCluster(5)
@@ -253,11 +251,11 @@ registerDoParallel(cl)
 r <- foreach(icount(trials), .combine=cbind) %dopar% {
   # execution
 }
+```
 
-## =========================================
+
 ## Colors
-## =========================================
-
+```r
 rainbow.f(1, 0.5)
 gray.f(0.5)
 
@@ -281,20 +279,18 @@ library(RColorBrewer)
 display.brewer.all(n=7, exact.n=FALSE)
 brewer.pal(n,"Greens")
 brewer.pal(n,"Spectral")
+```
 
-## =========================================
 ## Expression
-## =========================================
-
+```r
 expression(phi)
 expression(mu)
 expression("main title"^2)
 expression("sub-title"[2])
+```
 
-## =========================================
 ## Develop Packages
-## =========================================
-
+```r
 library(devtools)
 library(roxygen2)
 roxygenise()
@@ -304,4 +300,4 @@ install_github("einaooka/tea.eo.plots")
 install_github("einaooka/tea.color")
 install_github("einaooka/tea.datetime")
 install_github("einaooka/tea.utilities")
-
+```r

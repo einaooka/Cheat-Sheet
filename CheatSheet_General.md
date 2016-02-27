@@ -5,14 +5,12 @@
 2. [Date Time Manipulation](#date-time-manipulation)
 3. [Plots and Layouts](#plots-and-layouts)
 4. [Manipulate Data](#manipulate-data)
-5. [Interactive Java Plots](#interactive-java-plots)
-6. [multicore run](#multicore-run)
+5. [htmlwidgets](#htmlwidgets)
 7. [Colors](#colors)
-8. [Expression](#expression)
 9. [Develop Packages](#develop-packages)
 
 
-## Packages
+### Packages
 
 Custom
 ```r
@@ -36,7 +34,7 @@ set directory
 setwd("C:/Documents and Settings/murphyeo/Desktop")
 ```
 
-## Date Time Manipulation
+### Date Time Manipulation
 
 ```r
 help(package = "tea.datetime")
@@ -70,7 +68,7 @@ as.POSIXct(strptime(, "%m/%d/%Y %I:%M:00 %p"))
 * Off- Peak Hours (HE): 1-6, 23-24
 * On-Peak Hours (HE):7-22 
 
-## Plots and Layouts
+### Plots and Layouts
 ```r
 help(package = "tea.eo.plots")
 ```
@@ -156,12 +154,15 @@ text(x=midpts, y=height, c("text", "text"), pos=1, col=CA(2,1))
 box()
 ```
 
-## Manipulate Data
+### Manipulate Data
 
 ```r
 help(package = "tea.utilities")
+```
 
-# Import data 
+Import & Export Data
+```r
+#csv
 read.csv(, stringsAsFactors=FALSE
          , colClasses = classes # Specifying this makes reading faster
 )
@@ -174,12 +175,20 @@ classes <- sapply(tab5rows, class)
 ImportFromZema("HH Forward curves", "eina.murphy", timestep = "Monthly", useCurl=FALSE)
 ImportFromZema("CAISO_SP15_DailyPrices", "eina.murphy", timestep = "Daily", useCurl=FALSE)
 
+# save
+saveRDS(df, paste0("filename", Sys.Date(), ".rds"))
+write.csv(df, "filename.csv", row.names = FALSE)
+
+# Check if data set already exists
+if(!exists("df")){}
+
+```
+
+Reformat data
+```r
 # Conver daily <--> Monthly
 ConvertDailyToMonthly(df)
 ConvertMonthlyToDaily(df, type = c("step", "smooth"))
-
-# Check if a file exists
-if(!exists("df")){}
 
 # Remove commas from a data frame
 gsub(",", "", df)
@@ -188,14 +197,6 @@ gsub("_.*", "", x) # Remove everything after "_"
 
 # Add comma for large numbers
 format(12345.678,big.mark=",",scientific=FALSE)
-
-# Omit rows with incomplete data. 
-df=na.omit(df)
-
-# vector contains a string 
-grep("string", vector) # returns index number
-grep("string1 | string2 | string3", vector) # returns index number
-grepl("string", vector) # returns TRUE/FALSE
 
 ### Pivot table - make long table (df) into wide table with row (colName1) and column (colName2). 
 cast(df, colName1 ~ colName2, value="colName3", fun.aggregate=NULL, subset=())
@@ -212,6 +213,10 @@ melt(data)
 
 NA manipulation
 ```r
+# Omit rows with incomplete data. 
+df=na.omit(df)
+
+#Replace NA
 library(zoo)
 na.approx( , na.rm=FALSE) # Fill in all missing data by liner interpolation or previous values
 na.locf(, na.rm = FALSE) # Last observation carried forward
@@ -219,8 +224,40 @@ na.spline( , na.rm=FALSE) # cubic spline interpolation
 na.zero() # replace by zero. 
 ```
 
+Filter
 ```r
+# vector contains a string 
+grep("string", vector) # returns index number
+grep("string1 | string2 | string3", vector) # returns index number
+grepl("string", vector) # returns TRUE/FALSE
 
+# 
+isBetween(3:10, start=1, end=5)
+isBetween(as.Date("2012-1-1"), startDate, endDate)
+```
+
+multicore run
+
+```r
+library(foreach)
+library(doParallel)
+cl <- makeCluster(5)
+registerDoParallel(cl)
+
+r <- foreach(icount(trials), .combine=cbind) %dopar% {
+  # execution
+}
+```
+
+Expression
+```r
+expression(phi)
+expression(mu)
+expression("main title"^2)
+expression("sub-title"[2])
+```
+Other Utility Functions
+```r
 # Remove objects
 rm(list=ls())
 rm(list=ls()[grep("temp", ls()) ]) # Remove all object containing "temp"
@@ -236,15 +273,9 @@ proc.time() - ptm
 file.copy(from, to, overwrite = TRUE)
 file.exists(...)
 
-# 
-isBetween(3:10, start=1, end=5)
-isBetween(as.Date("2012-1-1"), startDate, endDate)
-
-# save r-object
-saveRDS(df, paste0("filename", Sys.Date(), ".rds"))
 ```
 
-## Interactive Java Plots
+### htmlwidgets
 
 **Leaflet** -- Map coordinates on google map
 ```r
@@ -263,20 +294,7 @@ dygraph(x.ts, main = "Sumas") %>%
   dyRangeSelector(dateWindow = c(data.df$Date[1], Sys.Date()))
 ```
 
-## multicore run
-
-```r
-library(foreach)
-library(doParallel)
-cl <- makeCluster(5)
-registerDoParallel(cl)
-
-r <- foreach(icount(trials), .combine=cbind) %dopar% {
-  # execution
-}
-```
-
-## Colors
+### Colors
 ```r
 rainbow.f(1, 0.5)
 gray.f(0.5)
@@ -301,15 +319,7 @@ brewer.pal(n,"Greens")
 brewer.pal(n,"Spectral")
 ```
 
-## Expression
-```r
-expression(phi)
-expression(mu)
-expression("main title"^2)
-expression("sub-title"[2])
-```
-
-## Develop Packages
+### Develop Packages
 ```r
 library(devtools)
 library(roxygen2)

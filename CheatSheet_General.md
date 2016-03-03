@@ -119,6 +119,7 @@ Plotting functions
 
 # returns plot ranges
 par("usr")
+text(par("usr")[1:2] %*% c(0.1,0.9), par("usr")[3:4] %*% c(0.1,0.9), "text")  # upper right
 
 # Draw grid lines
 DrawHLines(ylim)

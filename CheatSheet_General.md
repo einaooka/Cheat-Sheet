@@ -308,7 +308,7 @@ lightblue.f(0.5)
 purple.f(0.5)
 pink.f(0.5)	
 
-# A function to convert a numeric values to a color on a pallet. 
+# A function to convert a numeric values to a color on a palette. 
 library(leaflet)
 pal = colorBin("Spectral", domain = 0:16, bins = 7, pretty = TRUE, na.color = "#808080", alpha = FALSE)
 col=pal(1:15)

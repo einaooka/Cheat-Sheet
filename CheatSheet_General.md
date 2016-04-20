@@ -194,6 +194,7 @@ ConvertMonthlyToDaily(df, type = c("step", "smooth"))
 # Remove commas from a data frame
 gsub(",", "", df)
 for (col in 2:ncol(temp.df)) df[,col] <- as.numeric(gsub(",", "", df[,col]))
+df[,-1] <- lapply(df[,-1, drop=FALSE], function(x){as.numeric(gsub(",", "", x))}) 
 gsub("_.*", "", x) # Remove everything after "_"
 
 # Add comma for large numbers

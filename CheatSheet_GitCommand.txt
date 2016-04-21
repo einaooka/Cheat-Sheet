@@ -1,0 +1,45 @@
+
+# List of all branchs
+git branch -a
+
+# Note: branches are all read only as default settings. 
+
+# Pull online versions and merge with local branch
+git pull
+
+# ???
+git fetch
+
+# create a local branch
+git branch <branch>
+
+# checkout existing branch
+git checkout <branch>
+
+# create and checkout a new local branch
+git checkout -b <branch>
+
+# Staging
+git add
+
+# Commit
+git commit
+git commit -m"adding comment directly"
+
+# Add & commit 
+git commit -a
+
+# one-to-one correspondance between local and remote repo
+git push -u origin 
+
+# See the difference between working & staging
+git diff
+# b/w staging and history
+git diff --staged
+git diff HEAD
+
+# Pull new data and delete branches that is not in repo
+git pull -- prune
+
+# Look at history
+git log --oneline --decorate -10 --graph

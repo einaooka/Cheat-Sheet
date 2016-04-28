@@ -20,15 +20,6 @@ library(tea.datetime)
 library(tea.utilities)
 ```
 
-Often Used
-```r
-library(reshape)
-library(RCurl)
-library(corrplot)
-library(leaps) # subset regression
-library(zoo)
-```
-
 set directory
 ```r
 setwd("C:/Documents and Settings/murphyeo/Desktop")
@@ -37,15 +28,7 @@ setwd("C:/Documents and Settings/murphyeo/Desktop")
 ### Date Time Manipulation
 
 ```r
-help(package = "tea.datetime")
-
 as.Date0("date")
-
-MonthFromDate(date)
-YearFromDate(date)
-FirstDayOfMonth(date)
-DOW(date)	
-
 DateAsDateTime(date)	
 DateFromDateTime(datetime)	
 HourFromDateTime(datetime)
@@ -69,11 +52,8 @@ as.POSIXct(strptime(, "%m/%d/%Y %I:%M:00 %p"))
 * On-Peak Hours (HE):7-22 
 
 ### Plots and Layouts
-```r
-help(package = "tea.eo.plots")
-```
 
-Layouts
+######Layouts
 ```r
 plot.new() # start a new plot
 par(new=TRUE) # Overlay another plot
@@ -81,8 +61,6 @@ par(new=TRUE) # Overlay another plot
 Layout0()
 Layout6(title = 2)
 Layout12(title = 3)
-title(main=MonthName(month), line=-2)
-
 NPlotsLayout(n, withTitleSpace = FALSE)
 
 par(mfrow=c(1,1), mar=c(4,4,4,2) + 0.1, oma=c(0,0,0,0))
@@ -157,11 +135,7 @@ box()
 
 ### Manipulate Data
 
-```r
-help(package = "tea.utilities")
-```
-
-Import & Export Data
+######Import & Export Data
 ```r
 #csv
 read.csv(, stringsAsFactors=FALSE
@@ -185,7 +159,7 @@ if(!exists("df")){}
 
 ```
 
-Reformat data
+######Reformat data
 ```r
 # Conver daily <--> Monthly
 ConvertDailyToMonthly(df)
@@ -200,9 +174,6 @@ gsub("_.*", "", x) # Remove everything after "_"
 # Add comma for large numbers
 format(12345.678,big.mark=",",scientific=FALSE)
 
-### Pivot table - make long table (df) into wide table with row (colName1) and column (colName2). 
-cast(df, colName1 ~ colName2, value="colName3", fun.aggregate=NULL, subset=())
-
 ### Reshape a short table to a long table
 reshape(data.df # data frame
         , varying = colnames(data.df)[-1] # column names to be combined into one
@@ -213,7 +184,23 @@ reshape(data.df # data frame
 melt(data)
 ```
 
-NA manipulation
+######Filter & Subsetting
+```r
+# Modifying data frame
+df[,,drop=FALSE] # Preserving the type
+df$col <- NULL # Removing columns
+
+# vector contains a string 
+grep("string", vector) # returns index number
+grep("string1 | string2 | string3", vector) # returns index number
+grepl("string", vector) # returns TRUE/FALSE
+
+# 
+isBetween(3:10, start=1, end=5)
+isBetween(as.Date("2012-1-1"), startDate, endDate)
+```
+
+######NA manipulation
 ```r
 # Omit rows with incomplete data. 
 df=na.omit(df)
@@ -226,19 +213,7 @@ na.spline( , na.rm=FALSE) # cubic spline interpolation
 na.zero() # replace by zero. 
 ```
 
-Filter
-```r
-# vector contains a string 
-grep("string", vector) # returns index number
-grep("string1 | string2 | string3", vector) # returns index number
-grepl("string", vector) # returns TRUE/FALSE
-
-# 
-isBetween(3:10, start=1, end=5)
-isBetween(as.Date("2012-1-1"), startDate, endDate)
-```
-
-multicore run
+######multicore run
 
 ```r
 library(foreach)
@@ -251,14 +226,46 @@ r <- foreach(icount(trials), .combine=cbind) %dopar% {
 }
 ```
 
-Expression
 ```r
-expression(phi)
-expression(mu)
-expression("main title"^2)
-expression("sub-title"[2])
+library(parallel)
+cluster <- makePSOCKcluster(cores)
+parLapply(cluster, 1:10, f)
+clusterExport(cluster, "x)
 ```
-Other Utility Functions
+
+###### Functional Programing
+```r
+# Example
+funs <- c(mean, median, sd, mad, IQR)
+lapply(funs, function(f) f(x,na.rm=TRUE))
+```
+
+Note: use vapply instead of sapply for better handling of data types and computational speed. 
+
+# Reduce: extend a function that works with 2 inputs into a function that can deal with any number of inputs. 
+```r
+# Example
+lst <- replicate(5, sample(1:10, 15, replace=TRUE), simplify = FALSE)
+f <- intersect
+Reduce(f,lst)
+```
+
+Predicate functionals
+```r
+df <- data.frame(x=1:3, y=c("a", "b", "c"))
+Filter(is.factor, df)
+Find(is.factor, df)
+Position(is.factor, df)
+```
+
+# Input Functional Operators
+```r
+# Partial Function Application by pryr::partial()
+f <- partial(sum, na.rm=TRUE)
+
+```
+
+######Other Utility Functions
 ```r
 # Remove objects
 rm(list=ls())
@@ -275,6 +282,20 @@ proc.time() - ptm
 file.copy(from, to, overwrite = TRUE)
 file.exists(...)
 
+```
+### Meta-Programming
+
+```r
+deparse(substitute())
+eval(quote())
+```
+
+######Expression
+```r
+expression(phi)
+expression(mu)
+expression("main title"^2)
+expression("sub-title"[2])
 ```
 
 ### htmlwidgets

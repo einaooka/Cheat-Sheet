@@ -242,7 +242,7 @@ lapply(funs, function(f) f(x,na.rm=TRUE))
 
 Note: use vapply instead of sapply for better handling of data types and computational speed. 
 
-# Reduce: extend a function that works with 2 inputs into a function that can deal with any number of inputs. 
+###### Reduce: extend a function that works with 2 inputs into a function that can deal with any number of inputs. 
 ```r
 # Example
 lst <- replicate(5, sample(1:10, 15, replace=TRUE), simplify = FALSE)
@@ -258,11 +258,10 @@ Find(is.factor, df)
 Position(is.factor, df)
 ```
 
-# Input Functional Operators
+###### Input Functional Operators
 ```r
 # Partial Function Application by pryr::partial()
 f <- partial(sum, na.rm=TRUE)
-
 ```
 
 ######Other Utility Functions

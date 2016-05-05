@@ -181,7 +181,7 @@ reshape(data.df # data frame
         , v.names = "Load" # New column names for combined data
         , timevar = "HE"   # New column names for the label (original coliumn names)
         , direction = "long")
-melt(data)
+melt.data.frame(df, id.vars = "Date")
 ```
 
 ######Filter & Subsetting

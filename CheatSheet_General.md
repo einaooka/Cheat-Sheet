@@ -192,6 +192,7 @@ df$col <- NULL # Removing columns
 
 # vector contains a string 
 grep("string", vector) # returns index number
+grep("string", vector, value=TRUE) # returns values
 grep("string1 | string2 | string3", vector) # returns index number
 grepl("string", vector) # returns TRUE/FALSE
 
@@ -268,7 +269,7 @@ f <- partial(sum, na.rm=TRUE)
 ```r
 # Remove objects
 rm(list=ls())
-rm(list=ls()[grep("temp", ls()) ]) # Remove all object containing "temp"
+rm(list=grep("temp", ls(), value=TRUE)) # Remove all object containing "temp"
 
 # Pause
 readline("Press <return to continue") 

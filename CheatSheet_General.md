@@ -174,14 +174,26 @@ gsub("_.*", "", x) # Remove everything after "_"
 # Add comma for large numbers
 format(12345.678,big.mark=",",scientific=FALSE)
 
-### Reshape a short table to a long table
-reshape(data.df # data frame
-        , varying = colnames(data.df)[-1] # column names to be combined into one
-        , times = colnames(temp.df)[-1] # 
-        , v.names = "Load" # New column names for combined data
-        , timevar = "HE"   # New column names for the label (original coliumn names)
-        , direction = "long")
-melt.data.frame(df, id.vars = "Date")
+### library(reshape2)
+dcast()
+melt()
+
+### library(dplyr)
+filter(df, month == 1, day == 1)
+filter(df, month == 1 | month == 2)
+arrange(df, year, month,day) # reorder by specificed columns
+arrange(df, desc(year)) # decending order
+select(df, year, month, day) # Select specified columns
+select(df, year:day)
+select(df, -(year:day))
+select(df, old.name = new.name) # Rename columns while selecting certain columns
+rename(df, old.name = new.name) # Renaming. 
+distinct(select(df, col1, col2)) # faster than unique()
+mutate(df,
+  new.col1 = old.col1 - old.col2,
+  new.col2 = new.col1 / old.col1 * 60)
+sample_n(df, 10)
+
 ```
 
 ######Filter & Subsetting

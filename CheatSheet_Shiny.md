@@ -1,17 +1,72 @@
 #Shiny Cheat Sheet
 
 #### Table of Contents
-1. [Run](#run)
-1. [Handsontable](#handsontable)
+1. [Basic](#basic)
+1. [Debugging](#debugging)
 1. [Download](#download)
-1. [Dynamic UI](#dynamic-ui)
-2. [Other Functions](#other-functions)
+1. [Handsontable](#handsontable)
 
-### Run
+### Basic
+#### Run
 ```r
-setwd("O:/TEA-Risk-Model/RCode/shiny-app")
 library(shiny)
-runApp()
+runApp("shiny-app")
+```
+
+#### Render/Output pair
+| Render        | Output           | 
+| ------------- |:-------------:| 
+| renderDataTable   | dataTableOutput | 
+| renderImage    | imageOutput    |  
+| renderPlot | plotOutput    |  
+| renderPrint | verbatimTextOutput   |  
+| renderTable | tableOutput    |  
+| renderText | textOutput     |  
+| renderUI | uiOutput     |  
+
+### Debugging
+```r
+suppressMessages(library(plyr))
+
+# Run the following and press Ctrl + F3
+options(shiny.reactlog=TRUE) 
+
+# Pausing on errors
+options(shiny.error = browser)
+
+# Print information on the console
+cat(file=stderr(), "Reading data from", input$datanase.name)
+```
+
+### Download
+
+#### csv
+```r
+# ui
+downloadButton("download.xxx", label = "Download")
+
+# server
+output$download.xxx <- downloadHandler(
+  filename = function() {paste0("result-", Sys.Date(),".csv")}
+  , content = function(file) { write.csv(df, file, row.names = FALSE) }
+)
+```
+
+#### rmarkdown
+```r
+# ui
+downloadButton("report", label = "Generate Report"))
+
+# server
+output$report<- downloadHandler(
+  filename = function() { 
+    paste0('report.', Sys.Date(),'.html')
+  }
+  , content = function(file) {
+    out <- render('report.Rmd', "html_document")
+    file.rename(out, file)
+  }
+)
 ```
 
 ### Handsontable
@@ -31,68 +86,4 @@ output$table.xxx <- renderRHandsontable({
       hot_cols(fixedColumnsLeft = 1)
 })
 
-```
-
-### Download
-
-```r
-# ui
-downloadButton("download.xxx", label = "Download")
-
-# server
-output$download.xxx <- downloadHandler(
-  filename = function() {paste0("result-", Sys.Date(),".csv")}
-  , content = function(file) { write.csv(df, file, row.names = FALSE) }
-)
-```
-
-### Dynamic UI
-
-```r
-# ui
-uiOutput("ui.xxx")
-
-# server
-output$ui.xxx <- renderUI({
-  # UI widgets
-})
-
-# inputs from UI widgets need validation before used in server. 
-validate()
-
-```
-
-
-### Other Functions
-
-Blocking reactivity
-```r
-isolate()
-```
-
-Time-based reactivity (and so much more)
-```r
-invalidateLater()
-```
-
-Mechanisms for dealing with missing inputs and failed preconditions
-```r
-validate 
-req # if not truthy, stop by raising a "silent" exception
-
-output$plot <- renderPlot({
-  if (req(input$plotType) == "histogram") {
-    hist(dataset())
-  } else if (input$plotType == "scatter") {
-    qplot(dataset(), aes(x = x, y = y))
-  }
-})
-```
-
-```r
-# Higher order reactives by Hadley
-shinySignals
-
-# observe : observeEvent = reactive : eventReactive
-eventReactive
 ```

@@ -4,6 +4,7 @@
 1. [Basic](#basic)
 1. [Debugging](#debugging)
 1. [Download](#download)
+1. [Error Handling](#error-handling)
 1. [Handsontable](#handsontable)
 
 ### Basic
@@ -36,6 +37,11 @@ options(shiny.error = browser)
 
 # Print information on the console
 cat(file=stderr(), "Reading data from", input$datanase.name)
+```
+
+### Error Handling
+```r 
+validate(need(class(study.df()) != "try-error", "Could not connect to the database. Please check the information."))
 ```
 
 ### Download

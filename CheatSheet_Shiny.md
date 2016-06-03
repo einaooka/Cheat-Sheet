@@ -41,7 +41,7 @@ cat(file=stderr(), "Reading data from", input$datanase.name)
 
 ### Error Handling
 ```r 
-validate(need(class(study.df()) != "try-error", "Could not connect to the database. Please check the information."))
+validate(need(try(reactive.exp()), "Could not connect to the database. Please check the information."))
 ```
 
 ### Download

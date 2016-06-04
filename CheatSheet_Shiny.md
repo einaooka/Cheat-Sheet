@@ -42,6 +42,13 @@ cat(file=stderr(), "Reading data from", input$datanase.name)
 ### Error Handling
 ```r 
 validate(need(try(reactive.exp()), "Could not connect to the database. Please check the information."))
+
+validate(
+      need(input$data != "", "Please select a data set"),
+      need(input$data %in% c("mtcars", "faithful", "iris"), "Unrecognized data set"),
+      need(input$data, "Input is an empty string"),
+      need(!is.null(input$data), "Input is not an empty string, it is NULL")
+)
 ```
 
 ### Download

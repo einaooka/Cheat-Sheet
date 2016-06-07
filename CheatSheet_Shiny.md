@@ -5,6 +5,7 @@
 1. [Debugging](#debugging)
 1. [Download](#download)
 1. [Error Handling](#error-handling)
+2. [Interactivity](#interactivity)
 1. [Handsontable](#handsontable)
 
 ### Basic
@@ -80,6 +81,36 @@ output$report<- downloadHandler(
     file.rename(out, file)
   }
 )
+```
+
+### Interactivity
+
+```r
+brush = brushOpts(id = "plot_brush", fill = "#ccc", direction = "x")
+```
+
+| Type        | Select           | 
+| ------------- |:-------------:| 
+| click, dblclick, hover   | nearPoints() | 
+| brush    | brushedPoints()    |  
+
+```r
+ui <- basicPage(
+  plotOutput("plot1", click = "plot_click"),
+  verbatimTextOutput("info")
+)
+
+server <- function(input, output) {
+  output$plot1 <- renderPlot({
+    plot(mtcars$wt, mtcars$mpg)
+  })
+  output$info <- renderPrint({
+    nearPoints(mtcars, input$plot_click, xvar = "wt", yvar = "mpg")
+  })
+}
+
+shinyApp(ui, server)
+
 ```
 
 ### Handsontable

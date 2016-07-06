@@ -14,6 +14,8 @@
 9. [testthat](#testthat)
 9. [packrat](#packrat)
 1. [feather](#feather)
+2. [purrr](#purrr)
+3. [broom](#broom)
 
 ##magrittr
 
@@ -41,14 +43,19 @@ yday(d) # day of year (1 to 366)
 # Duration
 weeks(2); days(4)
 ymd(20150601) + weeks(2) + days(4)
+
+# Last day of months
+jan31 %m+% months(0:11)
 ```
 
 ##stringr
 ```r
+str_c() # paste0
+
 str_length(fruit)
 str_count(fruit, "xx") # Return a number
 
-# return a binary (T/F)
+# Detect -- return a binary
 str_detect(fruit, "xx") 
 str_detect(fruit, "^p") # matches start
 str_detect(fruit, "a$") # matches end
@@ -66,6 +73,10 @@ s = "The Quick Brown Fox"
 str_sub(s, 5, 9)
 str_sub(s, 5, 9) <- "Slow" # replace with different length
 str_sub(s, -3, -1)         # negative numbers count from end
+
+# Replace
+str_replace(strings, phone, "XXX-XXX-XXXX")
+str_replace_all(strings, matches)
 ```
 
 ##tidyr
@@ -85,3 +96,10 @@ str_sub(s, -3, -1)         # negative numbers count from end
 ##packrat
 
 ##feather
+
+## purrr
+*dplyr for vectors.* 
+
+## broom
+
+

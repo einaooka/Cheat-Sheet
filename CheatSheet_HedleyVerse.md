@@ -18,6 +18,10 @@
 3. [broom](#broom)
 
 ##magrittr
+```r
+df %$% plot(x,y)
+x %<>% sqrt()
+```
 
 ##readr
 ```r
@@ -80,8 +84,25 @@ str_replace_all(strings, matches)
 ```
 
 ##tidyr
+```r
+gather(data, key.name, value.name, cols)
+separate(data, col, into.cols, pattern, convert=TRUE)
+spread(data, key, value)
+```
 
 ##dplyr
+```r
+df %<>% 
+  select(cols) %>%
+  filter(condition) %>% 
+  mutate(new.col= ~) %>% 
+  arrange(col1, -col2) %>%  # dec() or '-' for decreasing
+  group_by(col1) %>% summarize(min=min(col2)) %>% 
+  group_by(col1) %>% filter(col2==max(col2))
+
+left_join
+
+```
 
 ##ggplot2
 

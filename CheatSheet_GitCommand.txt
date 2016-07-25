@@ -39,7 +39,7 @@ git diff --staged
 git diff HEAD
 
 # Pull new data and delete branches that is not in repo
-git pull -- prune
+git pull --prune
 
 # Look at history
 git log --oneline --decorate -10 --graph

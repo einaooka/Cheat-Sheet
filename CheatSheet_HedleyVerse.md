@@ -105,6 +105,9 @@ left_join
 ```
 
 ##ggplot2
+```
+ggplot(df)  + geom_line(aes(x = Date, y = y))
+```
 
 ##rvest
 

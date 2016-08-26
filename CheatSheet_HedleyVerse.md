@@ -85,7 +85,11 @@ str_replace_all(strings, matches)
 
 ##tidyr
 ```r
-gather(data, key.name, value.name, cols)
+# collapse multiple columns into key-value pairs
+gather(data, key.name, value.name, cols) 
+# Example
+gather(kerr.df, Iter, Value, -Date)
+
 separate(data, col, into.cols, pattern, convert=TRUE)
 spread(data, key, value)
 ```

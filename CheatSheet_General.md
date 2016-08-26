@@ -53,7 +53,7 @@ as.POSIXct(strptime(, "%m/%d/%Y %I:%M:00 %p"))
 
 ### Plots and Layouts
 
-######Layouts
+####Layouts
 ```r
 plot.new() # start a new plot
 par(new=TRUE) # Overlay another plot
@@ -136,7 +136,7 @@ box()
 
 ### Manipulate Data
 
-######Import & Export Data
+####Import & Export Data
 ```r
 #csv
 read.csv(, stringsAsFactors=FALSE
@@ -160,17 +160,21 @@ if(!exists("df")){}
 
 ```
 
-######Reformat data
-```r
-# Conver daily <--> Monthly
-ConvertDailyToMonthly(df)
-ConvertMonthlyToDaily(df, type = c("step", "smooth"))
+####Reformat data
 
+```r
 # Remove commas from a data frame
 gsub(",", "", df)
 for (col in 2:ncol(temp.df)) df[,col] <- as.numeric(gsub(",", "", df[,col]))
 df[,-1] <- lapply(df[,-1, drop=FALSE], function(x){as.numeric(gsub(",", "", x))}) 
 gsub("_.*", "", x) # Remove everything after "_"
+```
+[Summary of 'gsub'](http://www.endmemo.com/program/R/gsub.php)
+
+```r
+# Conver daily <--> Monthly
+ConvertDailyToMonthly(df)
+ConvertMonthlyToDaily(df, type = c("step", "smooth"))
 
 # Add comma for large numbers
 format(12345.678,big.mark=",",scientific=FALSE)
@@ -197,7 +201,7 @@ sample_n(df, 10)
 
 ```
 
-######Filter & Subsetting
+####Filter & Subsetting
 ```r
 # Modifying data frame
 df[,,drop=FALSE] # Preserving the type
@@ -214,7 +218,7 @@ isBetween(3:10, start=1, end=5)
 isBetween(as.Date("2012-1-1"), startDate, endDate)
 ```
 
-######NA manipulation
+####NA manipulation
 ```r
 # Omit rows with incomplete data. 
 df=na.omit(df)
@@ -227,7 +231,7 @@ na.spline( , na.rm=FALSE) # cubic spline interpolation
 na.zero() # replace by zero. 
 ```
 
-######multicore run
+####Multicore run
 
 ```r
 library(foreach)
@@ -247,7 +251,7 @@ parLapply(cluster, 1:10, f)
 clusterExport(cluster, "x)
 ```
 
-###### Functional Programing
+#### Functional Programing
 ```r
 # Example
 funs <- c(mean, median, sd, mad, IQR)
@@ -256,7 +260,7 @@ lapply(funs, function(f) f(x,na.rm=TRUE))
 
 Note: use vapply instead of sapply for better handling of data types and computational speed. 
 
-###### Reduce: extend a function that works with 2 inputs into a function that can deal with any number of inputs. 
+#### Reduce: extend a function that works with 2 inputs into a function that can deal with any number of inputs. 
 ```r
 # Example
 lst <- replicate(5, sample(1:10, 15, replace=TRUE), simplify = FALSE)
@@ -272,13 +276,13 @@ Find(is.factor, df)
 Position(is.factor, df)
 ```
 
-###### Input Functional Operators
+#### Input Functional Operators
 ```r
 # Partial Function Application by pryr::partial()
 f <- partial(sum, na.rm=TRUE)
 ```
 
-######Other Utility Functions
+####Other Utility Functions
 ```r
 # Remove objects
 rm(list=ls())
@@ -303,7 +307,7 @@ deparse(substitute())
 eval(quote())
 ```
 
-######Expression
+####Expression
 ```r
 expression(phi)
 expression(mu)

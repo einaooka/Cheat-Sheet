@@ -236,12 +236,19 @@ na.zero() # replace by zero.
 ```r
 library(foreach)
 library(doParallel)
-cl <- makeCluster(5)
-registerDoParallel(cl)
+cores <- detectCores(logical = FALSE) # Hyper-Threading is not much helpful for improving performance
+cl <- makeCluster(cores)
 
+registerDoParallel(cl, cores=cores)
 r <- foreach(icount(trials), .combine=cbind) %dopar% {
   # execution
 }
+
+clusterExport(cl, c('solve.quad.eq', 'a', 'b', 'c')) # Export data and functions to workers
+res1.p <- parLapply(cl, 1:len, function(x) { solve.quad.eq(a[x], b[x], c[x]) })
+
+stopCluster(cl)
+
 ```
 
 ```r

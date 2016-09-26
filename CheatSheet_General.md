@@ -147,6 +147,9 @@ read.csv(, stringsAsFactors=FALSE
 tab5rows <- read.table("datatable.txt", header = TRUE, nrows = 100) 
 classes <- sapply(tab5rows, class) 
 
+# Read in multiple files into a data frame. 
+ldply(paths, read.csv, stringAsFactors = FALSE)
+
 # Import Data from Zema: RiskModelInput_MidC-Gas, AMP.AD.HH.Daily
 ImportFromZema("HH Forward curves", "eina.murphy", timestep = "Monthly", useCurl=FALSE)
 ImportFromZema("CAISO_SP15_DailyPrices", "eina.murphy", timestep = "Daily", useCurl=FALSE)

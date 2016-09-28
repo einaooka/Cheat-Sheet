@@ -5,6 +5,7 @@
 5. [dplyr](#dplyr)
 4. [tidyr](#tidyr)
 2. [readr](#readr)
+2. [readxl](#readxl)
 2. [lubridate](#lubridate)
 3. [stringr](#stringr)
 7. [ggplot2](#ggplot2)
@@ -19,8 +20,8 @@
 
 ##magrittr
 ```r
-df %$% plot(x,y)
-x %<>% sqrt()
+df %$% plot(x,y)  # Makes lhs visible to rhs
+x %<>% sqrt() # compute & updates lhs 
 ```
 
 ##dplyr
@@ -29,10 +30,11 @@ df %<>%
   select(cols) %>%
   filter(condition) %>% 
   mutate(new.col= ~) %>% 
-  arrange(col1, -col2) %>%  # dec() or '-' for decreasing
+  arrange(col1, -col2) %>%  # sorting: dec() or '-' for decreasing
   group_by(col1) %>% summarize(min=min(col2)) %>% 
   group_by(col1) %>% filter(col2==max(col2))
 
+# Merge function
 left_join
 
 ```
@@ -44,8 +46,12 @@ gather(data, key.name, value.name, cols)
 # Example
 gather(kerr.df, Iter, Value, -Date)
 
-separate(data, col, into.cols, pattern, convert=TRUE)
+# oposite of gather
 spread(data, key, value)
+
+# Separate a column values into multiple columns based on a pattern
+separate(data, col, into.cols, pattern, convert=TRUE)
+
 ```
 
 ##readr
@@ -55,6 +61,8 @@ read_delim() #any-other-char-separated
 
 problems(df)$row
 ```
+
+##readxl
 
 ##lubridate
 ```r
@@ -110,7 +118,27 @@ str_replace_all(strings, matches)
 
 ##ggplot2
 ```
-ggplot(df)  + geom_line(aes(x = Date, y = y))
+# Clean theme
++ theme_minimal()
+
+# Basic plotting
+ggplot(bps2, aes(x=obs_date, y=sys, colour=Name)) + geom_point()
+
+ggplot(bps2, aes(x=Week, y=sys)) + 
+    geom_point() +
+    stat_smooth(method="loess")
+    
+ggplot(bps2, aes(x=obs_date, y=sys, group=Name, colour=Name)) +
+    geom_line()
+
+ggplot(bps2, aes(x=Week)) +
+      geom_line(aes(y=sys, col="sys"), lwd=1) +
+      geom_line(aes(y=dia, col="dia"), lwd=1) +
+      scale_colour_manual(name="Phase", values=c(sys="red",dia="blue")) +
+      ylab("mmHg")
+      
+# Histogram
+ggplot(bps2, aes(x=sys, fill=Name)) + geom_histogram(binwidth=1)
 ```
 
 ##rvest

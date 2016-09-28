@@ -123,13 +123,12 @@ str_replace_all(strings, matches)
 
 # Basic plotting
 ggplot(bps2, aes(x=obs_date, y=sys, colour=Name)) + geom_point()
-
-ggplot(bps2, aes(x=Week, y=sys)) + 
-    geom_point() +
-    stat_smooth(method="loess")
     
-ggplot(bps2, aes(x=obs_date, y=sys, group=Name, colour=Name)) +
-    geom_line()
+geom_point()
+geom_line()
+geom_ribbon(alpha=0.5)
+geom_histogram(binwidth=1)
+geom_boxplot()
 
 ggplot(bps2, aes(x=Week)) +
       geom_line(aes(y=sys, col="sys"), lwd=1) +
@@ -137,8 +136,16 @@ ggplot(bps2, aes(x=Week)) +
       scale_colour_manual(name="Phase", values=c(sys="red",dia="blue")) +
       ylab("mmHg")
       
-# Histogram
-ggplot(bps2, aes(x=sys, fill=Name)) + geom_histogram(binwidth=1)
+# Faceting
+ggplot(bps2, aes(x=obs_date, y=sys)) +
+   geom_line() + stat_smooth(method="loess") +
+   facet_wrap(~Name,nrow=1) +
+   theme_stata()
+   
+ggplot(bps2, aes(x=obs_date, ymin=dia, ymax=sys, fill=Name)) +
+   geom_ribbon(alpha=0.5) +
+   facet_wrap(~Name, ncol=1, scales="free_y")
+      
 ```
 
 ##rvest
@@ -148,6 +155,20 @@ ggplot(bps2, aes(x=sys, fill=Name)) + geom_histogram(binwidth=1)
 ##roxygen2
 
 ##testthat
+```r
+foo = function(a, b=1){ a + b }
+expect_equal(foo(1), 2)
+expect_equal(foo(1, 2), 3)
+expect_error(foo())
+
+test_that("foo works", {
+   expect_equal(foo(1, 2), 3, info="add 2 numbers")
+   expect_equal(foo(1), 2, info="default b is 1")
+   expect_error(foo(), info="need one arg")
+   expect_error(foo(1,2,3,4,5), info="too many args")
+ })
+
+```
 
 ##packrat
 

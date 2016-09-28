@@ -117,6 +117,7 @@ str_replace_all(strings, matches)
 ```
 
 ##ggplot2
+http://docs.ggplot2.org/current/index.html
 ```
 # Clean theme
 + theme_minimal()

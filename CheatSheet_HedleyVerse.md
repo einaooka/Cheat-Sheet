@@ -2,11 +2,11 @@
 
 #### Table of Contents
 1. [magrittr](#magrittr)
+5. [dplyr](#dplyr)
+4. [tidyr](#tidyr)
 2. [readr](#readr)
 2. [lubridate](#lubridate)
 3. [stringr](#stringr)
-4. [tidyr](#tidyr)
-5. [dplyr](#dplyr)
 7. [ggplot2](#ggplot2)
 9. [rvest](#rvest)
 9. [devtools](#devtools)
@@ -21,6 +21,31 @@
 ```r
 df %$% plot(x,y)
 x %<>% sqrt()
+```
+
+##dplyr
+```r
+df %<>% 
+  select(cols) %>%
+  filter(condition) %>% 
+  mutate(new.col= ~) %>% 
+  arrange(col1, -col2) %>%  # dec() or '-' for decreasing
+  group_by(col1) %>% summarize(min=min(col2)) %>% 
+  group_by(col1) %>% filter(col2==max(col2))
+
+left_join
+
+```
+
+##tidyr
+```r
+# collapse multiple columns into key-value pairs
+gather(data, key.name, value.name, cols) 
+# Example
+gather(kerr.df, Iter, Value, -Date)
+
+separate(data, col, into.cols, pattern, convert=TRUE)
+spread(data, key, value)
 ```
 
 ##readr
@@ -81,31 +106,6 @@ str_sub(s, -3, -1)         # negative numbers count from end
 # Replace
 str_replace(strings, phone, "XXX-XXX-XXXX")
 str_replace_all(strings, matches)
-```
-
-##tidyr
-```r
-# collapse multiple columns into key-value pairs
-gather(data, key.name, value.name, cols) 
-# Example
-gather(kerr.df, Iter, Value, -Date)
-
-separate(data, col, into.cols, pattern, convert=TRUE)
-spread(data, key, value)
-```
-
-##dplyr
-```r
-df %<>% 
-  select(cols) %>%
-  filter(condition) %>% 
-  mutate(new.col= ~) %>% 
-  arrange(col1, -col2) %>%  # dec() or '-' for decreasing
-  group_by(col1) %>% summarize(min=min(col2)) %>% 
-  group_by(col1) %>% filter(col2==max(col2))
-
-left_join
-
 ```
 
 ##ggplot2

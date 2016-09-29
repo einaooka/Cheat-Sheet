@@ -25,9 +25,10 @@ x %<>% sqrt() # compute & updates lhs
 ```
 
 ##dplyr
+https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
 ```r
 df %<>% 
-  select(cols) %>%
+  select(cols) %>%   # use inside: starts_with(), ends_with(), matches(), contains()
   filter(condition) %>% 
   mutate(new.col= ~) %>% 
   arrange(col1, -col2) %>%  # sorting: dec() or '-' for decreasing
@@ -41,12 +42,12 @@ left_join
 
 ##tidyr
 ```r
-# collapse multiple columns into key-value pairs
-gather(data, key.name, value.name, cols) 
+# collapse multiple columns into key-value pairs, i.e. melt in reshape2
+gather(data, new.key.name, new.value.name, cols) 
 # Example
 gather(kerr.df, Iter, Value, -Date)
 
-# oposite of gather
+# oposite of gather, i.e., cast in reshape
 spread(data, key, value)
 
 # Separate a column values into multiple columns based on a pattern
@@ -173,11 +174,27 @@ test_that("foo works", {
 
 ##packrat
 
+
 ##feather
 
 ## purrr
 *dplyr for vectors.* 
 
 ## broom
+Tidy up model outputs from lm, glm, nls, t.test, cor.test
+```r
+lmfit <- lm(mpg ~ wt, mtcars)
 
+# Fit Coefficient
+tidy(lmfit)
+
+#  fitted values and residuals for each of the original points
+augment(lmfit) 
+
+# model summary statistics
+glance(lmfit)
+```
+
+## tibble
+The new "data.frame" hadley way. 
 

@@ -148,5 +148,15 @@ dim(temp)
 rm(mdb)
 gc()
 
+## =========================================
+## Save large dataset as local JSON file
+## =========================================
 
+# Write output as JSON  # 18.75  for 100 iteration
+ptm <- proc.time()
+writeLines(toJSON(data.mtx[,1:100,]), "test.JSON")
+proc.time() - ptm
 
+# Call bulk insert from shell             
+system("ls -F")        
+            

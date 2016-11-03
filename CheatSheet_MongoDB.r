@@ -152,10 +152,11 @@ gc()
 ## Save large dataset as local JSON file
 ## =========================================
 
-# Write output as JSON  # 18.75  for 100 iteration
+# Write output as JSON  # 8.71 sec for 100 iteration --> 66MB JSON file
 ptm <- proc.time()
 writeLines(toJSON(data.mtx[,1:100,]), "test.JSON")
 proc.time() - ptm
+# compare this to 3.93 sec for 68 MB RDS file             
 
 # Call bulk insert from shell             
 system("ls -F")        

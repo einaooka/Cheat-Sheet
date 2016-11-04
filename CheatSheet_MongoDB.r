@@ -130,13 +130,13 @@ mdb <- mongo(collection = "stochvars", db = "HedgeFox", url = "mongodb://eooka:e
 mdb$drop()
 mdb$count()
 
-# Save Data - 145.23 sec
+# Save Data - 37.97 sec for 100 iter
 ptm <- proc.time()
-for (i in 1:10) mdb$insert(data.frame(data.mtx[,i,]))
+for (i in 1:100) mdb$insert(data.frame(data.mtx[,i,]))
 proc.time() - ptm
 
 
-# Pull Data - 11.11 sec into 18250 x 50 data frame
+# Pull Data - 36.53 sec into 182500 x 50 data frame
 ptm <- proc.time()
 temp <- mdb$find()
 proc.time() - ptm 
@@ -152,11 +152,12 @@ gc()
 ## Save large dataset as local JSON file
 ## =========================================
 
-# Write output as JSON  # 8.71 sec for 100 iteration --> 66MB JSON file
+# Write output as JSON  # 5.88 sec for 100 iteration --> 64.6 MB JSON file
+setwd("C:/Documents and Settings/murphyeo/Desktop")
 ptm <- proc.time()
 writeLines(toJSON(data.mtx[,1:100,]), "test.JSON")
 proc.time() - ptm
-# compare this to 3.93 sec for 68 MB RDS file             
+# compare this to 2.77 sec for 66.8 MB MB RDS file             
 
 # Call bulk insert from shell             
 system("ls -F")        

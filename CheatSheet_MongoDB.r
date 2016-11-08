@@ -8,7 +8,7 @@
 ###############################################
 
 ## =========================================
-## Basic MongoDB & Server Information
+## Test Basic MongoDB Con & Server Information
 ## =========================================
 
 library(mongolite)
@@ -25,7 +25,7 @@ con$insert(mtcars)
 # Query data
 con$find()
 
-# Server information
+# Find db information
 temp <- con$info()
 names(temp)
 temp$name
@@ -120,27 +120,29 @@ rm(dmd)
 gc()
 
 ## =========================================
-## Save large dataset
+## Test Saving large dataset
 ## =========================================
 
-data.mtx <- array(rnorm(5*365 * 1000 * 50), dim=c(5*365, 1000, 50))
-length(data.mtx)
+library(mongolite)
 
+# Create a dummy data
+data.mtx <- array(rnorm(5*365 * 1000 * 50), dim=c(5*365, 1000, 50))
+length(data.mtx) # 91,250,000 data points
+
+# Connect to a database
 mdb <- mongo(collection = "stochvars", db = "HedgeFox", url = "mongodb://eooka:eooka1!@13.91.1.230:27017")
 mdb$drop()
 mdb$count()
 
-# Save Data - 37.97 sec for 100 iter
+# Insert Data - 390.28 sec (6.5 min)
 ptm <- proc.time()
-for (i in 1:100) mdb$insert(data.frame(data.mtx[,i,]))
+for (i in 1:1000) mdb$insert(data.frame("Iter"=i, data.mtx[,i,]))
 proc.time() - ptm
 
-
-# Pull Data - 36.53 sec into 182500 x 50 data frame
+# Find Data - 593.91 sec (9.9 min)
 ptm <- proc.time()
 temp <- mdb$find()
 proc.time() - ptm 
-
 
 mdb$count()
 dim(temp)

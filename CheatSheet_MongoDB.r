@@ -194,3 +194,21 @@ ptm <- proc.time()
 mtx <- array(NA, dim=c(dim(fromJSON(temp$json[1])), 50))
 for (i in 1:50) mtx[,,i] <- fromJSON(temp$json[i])
 proc.time() - ptm             
+
+# Converting takes shorter if multi-threading -  55.58 sec
+library(foreach)
+library(doParallel)
+library(abind)
+cores <- detectCores() # Hyper-Threading is not much helpful for improving performance
+cl <- makeCluster(cores-1)
+
+ptm <- proc.time()
+registerDoParallel(cl, cores=cores)
+mtx2 <- foreach(i=1:50, .packages=c('jsonlite'), .combine=function(x,y)abind(x,y,along=3)) %dopar% {
+  fromJSON(temp$json[i])
+  }
+stopCluster(cl)
+proc.time() - ptm             
+            
+            
+            

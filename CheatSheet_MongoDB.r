@@ -164,3 +164,33 @@ proc.time() - ptm
 # Call bulk insert from shell             
 system("ls -F")        
             
+## =========================================
+## Blobbing with JSON
+## =========================================           
+
+nVars <- 50
+            
+library(jsonlite)
+df <- data.frame("var"=paste0("Var",1:nVars), json=NA)
+for (i in 1:nVars) df[i, "json"] <- toJSON(data.mtx[,,i])
+
+library(mongolite)
+mdb <- mongo(collection = "stochvars", db = "HedgeFox", url = "mongodb://eooka:eooka1!@13.93.223.54:27017")
+mdb$count()
+mdb$drop()
+
+# Insert  - 190.76 sec (3.17 min)
+ptm <- proc.time()
+mdb$insert(df)
+proc.time() - ptm 
+
+# Pull - 110.40 sec
+ptm <- proc.time()
+temp <- mdb$find()
+proc.time() - ptm 
+
+ # Convert back to large matrix - 93.30 sec
+ptm <- proc.time()
+mtx <- array(NA, dim=c(dim(fromJSON(temp$json[1])), 50))
+for (i in 1:50) mtx[,,i] <- fromJSON(temp$json[i])
+proc.time() - ptm             

@@ -119,6 +119,7 @@ str_replace_all(strings, matches)
 
 ##ggplot2
 http://docs.ggplot2.org/current/index.html
+https://blog.rstudio.org/2016/11/14/ggplot2-2-2-0/
 ```
 # Clean theme
 + theme_minimal()

@@ -5,9 +5,11 @@
 | Ctrl + 1           | Source        |
 | Ctrl + L           | Clear Console | 
 | F3                 | Find Next | 
+| F2                 | Jump to function | 
+| Ctrl + .           | Find function | 
+| Ctrl + Shift + F   | Find text  | 
 | Ctrl + Shift +F10  | Restart R | 
 | Ctrl + Alt + R     | Run All |
-| Ctrl + Shift + M   | %>% | 
 | Ctrl + Shift + M   | %>% | 
 | Alt + -            |     <-  |   
 | Ctrl + Shift + C   | Commenting out section      |   

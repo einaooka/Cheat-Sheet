@@ -269,10 +269,10 @@ lapply(funs, function(f) f(x,na.rm=TRUE))
 ```
 
 Note: use vapply instead of sapply for better handling of data types and computational speed. 
-``r
+```r
 vapply(lst, fun, numeric(1)) # returns a vector of numeric values. 
 vapply(lst, fun, character(2)) # returns a matrix with 2 rows of strings.  
-``
+```
 
 #### Reduce: extend a function that works with 2 inputs into a function that can deal with any number of inputs. 
 ```r

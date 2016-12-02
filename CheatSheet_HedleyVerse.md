@@ -180,6 +180,21 @@ test_that("foo works", {
 
 ## purrr
 *dplyr for vectors.* 
+```r
+# one input
+map(1:10, rnorm, mean=10)
+map_dbl(mtcars, sum)
+# map_lgl, map_chr, map_int, map_dbl, map_df for output type specific
+
+# 2 inputs
+map2(1:10, 21:30, rnorm, sd=10)
+
+# multiple inputs
+pmap(list(n=1:10, mean=21:30, sd=rep(1:2, each=5)), rnorm)
+
+# Functions with side-effects
+walk(seq(10,1000,100), function(x)hist(rnorm(x))) 
+```
 
 ## broom
 Tidy up model outputs from lm, glm, nls, t.test, cor.test

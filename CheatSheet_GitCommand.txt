@@ -1,3 +1,5 @@
+# Delete a local brunch 
+git branch -D the_local_branch
 
 # List of all branchs
 git branch -a

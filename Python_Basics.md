@@ -44,9 +44,19 @@ round()
 sorted()
 ```
 
-## packages
-- math
-- numpy
+## Operators
+```python
+if conditon1 : 
+    exp1
+elif conditon2 : 
+    exp2
+else :
+    exp3
+
+while conditon :
+    expression
+
+```
 
 ## _numpy_ package (Numeric Python)
 - Numpy Array & appy operations & Stats
@@ -81,6 +91,9 @@ np.random.normal(1.75,0.20,5000)
 
 # re-organize data
 np.column_stack
+
+# array booleans
+np.logical_and(), np.logical_or, np.logical_not()
 
 ```
 
@@ -138,6 +151,10 @@ df.loc[["r2"]]
 df.loc[["r1", "r2],["var1", "var3"]]
 df.loc[:,["var1", "var3"]]
 df.iloc[[0:2],[0,3]]
+
+# Filtering - on panda series, not data frame
+df = df[np.logical_and(df['val2'] > 5, df['val2'] < 10)]
+
 ```
 
 

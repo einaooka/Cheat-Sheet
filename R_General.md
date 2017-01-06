@@ -15,7 +15,6 @@
 Custom
 ```r
 library(tea.eo.plots)
-library(tea.color)
 library(tea.datetime)
 library(tea.utilities)
 ```
@@ -386,7 +385,6 @@ roxygenise()
 
 library(devtools)
 install_github("einaooka/tea.eo.plots")
-install_github("einaooka/tea.color")
 install_github("einaooka/tea.datetime")
 install_github("einaooka/tea.utilities")
 ```

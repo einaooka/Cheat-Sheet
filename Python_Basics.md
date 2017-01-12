@@ -61,6 +61,9 @@ for var in lst :
     
 for index, var in enumerate(seq) :
     print("Index" + str(index) + ": " + str(var))
+    
+for x in range(100):
+    expression
 
 ```
 

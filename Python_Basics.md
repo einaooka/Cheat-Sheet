@@ -93,6 +93,9 @@ np.sort()
 np.round()
 
 # random value generator
+np.random.seed(123)
+np.random.rand() # float
+np.random.randint(0,6) # integer 0,1,...,5 
 np.random.normal(1.75,0.20,5000)
 
 # re-organize data
@@ -179,8 +182,4 @@ for lab, row in df.iterrows() :
 
 # Apply function (e.g. length function)
 df["newcol"] = df["var1"].apply(len)
-
-
 ```
-
-

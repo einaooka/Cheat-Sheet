@@ -44,7 +44,7 @@ round()
 sorted()
 ```
 
-## Operators
+## Operators & Loops
 ```python
 if conditon1 : 
     exp1
@@ -55,6 +55,12 @@ else :
 
 while conditon :
     expression
+    
+for var in lst : 
+    expression
+    
+for index, var in enumerate(seq) :
+    print("Index" + str(index) + ": " + str(var))
 
 ```
 
@@ -95,6 +101,13 @@ np.column_stack
 # array booleans
 np.logical_and(), np.logical_or, np.logical_not()
 
+# for loop
+for val in x : 
+    print(val)
+    
+for val in np.nditer(np_2d) : 
+    print(val)
+
 ```
 
 ## _matplotlib_ package (Visualization)
@@ -127,6 +140,10 @@ my_dict['Key3'] = 0.03
 
 'Key3' in my_dict
 del(my_dict['key3])
+
+for key, value in my_dict.items() :
+    print(key + " : " + str(value))
+
 ```
 
 ## pandas - DataFrame

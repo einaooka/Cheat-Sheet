@@ -172,6 +172,15 @@ df.iloc[[0:2],[0,3]]
 # Filtering - on panda series, not data frame
 df = df[np.logical_and(df['val2'] > 5, df['val2'] < 10)]
 
+# For loop 
+for lab, row in df.iterrows() :
+    print(lab + " : " + row["var1"])
+# lab is the row label. row is the row data. 
+
+# Apply function (e.g. length function)
+df["newcol"] = df["var1"].apply(len)
+
+
 ```
 
 

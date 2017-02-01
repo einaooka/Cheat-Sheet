@@ -33,17 +33,31 @@ thing_factory <- R6Class(
   public = list(
       initialize = function(a_field, another_field) {
       if(!missing(a_field)) {
-        private$a_field <- a_field
+        private$..a_field <- a_field
       }
       if(!missing(another_field)) {
-        private$another_field <- another_field
+        private$..another_field <- another_field
       },
     
-    do_something = function(x,y,z){
-      print(private$a_field)
+    do_something = function(x){
+      private$..another_field = private$..another_field + x
     }
   ),
-  active = list()
+  active = list(
+     a_field = function(){  # Read-only active binding
+       if(is.na(private$..a_field)) return("a missing value")
+       private$..a_field
+     },
+     another_field = function(value){
+       if(missing(value)) { #get
+          private$..a_field
+        } else { #set
+         assert_is_a_number(value)
+         private$..another_filed <- value
+       }
+     }
+  
+  )
 )
 
 # Create objects
@@ -58,7 +72,11 @@ a_thing <- thing_factory$new(  # Initialize public function
   another_field = 456
 )
 
-# Active Bindings
+# Active Bindings gives controled access to the private field
+#  - Defined like functions
+#  - Accessed like data
+a_thing$a_field
+a_thing$another_field <- 456
 
 
 ```

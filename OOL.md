@@ -78,5 +78,13 @@ a_thing <- thing_factory$new(  # Initialize public function
 a_thing$a_field
 a_thing$another_field <- 456
 
+# Inheritance
+child_thing_factory <- R6Class(
+  "ChildThing",
+  inherit = thing_factory, 
+  public = list( # child inherits all parents functionality
+    do_something_else = function(){}
+  )
+)
 
 ```

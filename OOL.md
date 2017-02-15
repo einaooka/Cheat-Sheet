@@ -80,10 +80,17 @@ a_thing$another_field <- 456
 
 # Inheritance
 child_thing_factory <- R6Class(
-  "ChildThing",
+  "ChildThing", 
   inherit = thing_factory, 
-  public = list( # child inherits all parents functionality
-    do_something_else = function(){}
+  public = list(
+    do_something = function(){
+      message("the child do_something method")  # overwrite do_something 
+    }, 
+    do_something_else = function(){
+      message("the child do_something_else method")
+      self$do_something()  # self$ accesses public methods in self
+      super$do_something() # super$ accesses public methods in parent
+    }
   )
 )
 

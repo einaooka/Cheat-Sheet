@@ -94,4 +94,31 @@ child_thing_factory <- R6Class(
   )
 )
 
+# Chain Ingeritance - child has access to direct parent only. 
+child_thing_factory <- R6Class(
+  "ChildThing", 
+  inherit = thing_factory, 
+  public = list(
+    do_something = function(){
+      message("the child do_something method")
+    },
+    active = list(               # create active binding for grand-child method access. 
+      super_ = function() super
+    )
+  )
+)
+
+grandchild_thing_factory <- R6Class(
+  "GrandChildThing", 
+  inherit = child_thing_factory, 
+  public = list(
+    do_something = function(){
+      message("the grand-child do_something method")
+      super$do_something()          # Access parent method
+      super$super_$do_something()   # Access grand-parent method
+    }
+  )
+)
+
+
 ```

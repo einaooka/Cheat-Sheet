@@ -382,6 +382,7 @@ brewer.pal(n,"Spectral")
 library(devtools)
 library(roxygen2)
 roxygenise()
+build_vignettes()
 
 library(devtools)
 install_github("einaooka/tea.eo.plots")

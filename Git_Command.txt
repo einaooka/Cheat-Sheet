@@ -1,3 +1,7 @@
+# Uncommit
+git reset HEAD~1
+https://stackoverflow.com/questions/927358/how-do-i-undo-the-last-commits-in-git
+
 # Delete a local brunch 
 git branch -D the_local_branch
 

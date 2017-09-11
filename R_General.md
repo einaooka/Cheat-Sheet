@@ -10,36 +10,11 @@
 9. [Develop Packages](#develop-packages)
 
 
-### Packages
-
-Custom
-```r
-library(tea.eo.plots)
-library(tea.datetime)
-library(tea.utilities)
-```
-
-set directory
-```r
-setwd("C:/Documents and Settings/murphyeo/Desktop")
-```
-
 ### Date Time Manipulation
 
 ```r
-as.Date0("date")
-DateAsDateTime(date)	
-DateFromDateTime(datetime)	
-HourFromDateTime(datetime)
-DateAndHEAsPOSIX(date, HE)
-
-MonthName(month, short = TRUE)
-NumDaysInMonth(date)
-
 dates <- seq(as.Date("2015-1-1"),as.Date("2020-1-1"), by=1)
 GetDateTable(dates, c("Date", "pk.nHours", "opk.nHours"))	
-
-Sys.Date() # Today's date
 
 as.POSIXct(strptime(, "%m/%d/%Y %H:%M"))
 as.POSIXct(strptime(, "%m/%d/%Y %I:%M:00 %p"))
@@ -383,9 +358,4 @@ library(devtools)
 library(roxygen2)
 roxygenise()
 build_vignettes()
-
-library(devtools)
-install_github("einaooka/tea.eo.plots")
-install_github("einaooka/tea.datetime")
-install_github("einaooka/tea.utilities")
 ```

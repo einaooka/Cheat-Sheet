@@ -1,8 +1,7 @@
 # Useful R Codes
 
 #### Table of Contents
-1. [Packages](#packages)
-2. [Date Time Manipulation](#date-time-manipulation)
+1. [Date Time Manipulation](#date-time-manipulation)
 3. [Plots and Layouts](#plots-and-layouts)
 4. [Manipulate Data](#manipulate-data)
 5. [htmlwidgets](#htmlwidgets)
@@ -78,29 +77,6 @@ text(par("usr")[1:2] %*% c(0.9,0.1), par("usr")[3:4] %*% c(0.1,0.9), "text") # u
 DrawHLines(ylim)
 Add.QlyShades(2010:2020)
 
-# Add percentiles to a plot
-QLines(df$Date, df$Y, mean.lwd = 2)
-QMatLines(df$Date, df[,-1], qs=c(0.25,0.75), q.col=gray.f(0.5))
-
-# Stochastic Projection
-PlotStochastic(date, y1, blue.f, q1 = c(0.05,0.95), q2=c(0.25, 0.75), ylab="y")
-Plot2Stochastics(date, y1, y2, red.f, blue.f, qs = c(0.05,0.95), ylab="y") # 2 series
-PlotMatStochastic(df$Date, df[,-1], blue.f, q1 = c(0.05,0.95), q2=c(0.25, 0.75), ylab="y") # Short table
-
-# Stacked area
-PlotStackedArea(x, ys, cols = c(NA, NA), legend = list(need = FALSE,location = "topleft", cex = 1), ...)
-PlotArea(x, y, col, add = FALSE, ...)
-FillArea(x, y, col)
-
-#Plot a histogram with quantiles
-PlotHistogram(x, green.f)
-PlotHistogram(x, blue.f, textStagger=TRUE)
-PlotHistograms(list("x1"=x1, "x2"=x2), cols.f = list(red.f, blue.f), qs=c(0.05, 0.95)) # multiple histograms
-
-# Display table
-PlotTable(BasisDiff.df, col.f=orange.f)
-PlotTable(BasisDiff.df, col.f=blue.f, colnames=c("Month", "On-Peak", "Off-Peak"))
-
 # bar plot example
 midpts <- barplot(height, names.arg
                   , col=CA(2,0.4), border=CA(2,1), ylab="", ylim=c(0,1800))
@@ -117,20 +93,20 @@ read.csv(, stringsAsFactors=FALSE
          , colClasses = classes # Specifying this makes reading faster
 )
 
+# Read Excel: load all the worksheets in a workbook at once
+path <- readxl_example("datasets.xlsx")
+excel_sheets(path)
+path %>%
+  excel_sheets() %>%
+  set_names() %>%
+  map(read_excel, path = path)
+
 # Identify column class
 tab5rows <- read.table("datatable.txt", header = TRUE, nrows = 100) 
 classes <- sapply(tab5rows, class) 
 
 # Read in multiple files into a data frame. 
 ldply(paths, read.csv, stringAsFactors = FALSE)
-
-# Import Data from Zema: RiskModelInput_MidC-Gas, AMP.AD.HH.Daily
-ImportFromZema("HH Forward curves", "eina.murphy", timestep = "Monthly", useCurl=FALSE)
-ImportFromZema("CAISO_SP15_DailyPrices", "eina.murphy", timestep = "Daily", useCurl=FALSE)
-
-# save
-saveRDS(df, paste0("filename", Sys.Date(), ".rds"))
-write.csv(df, "filename.csv", row.names = FALSE)
 
 # Check if data set already exists
 if(!exists("df")){}
@@ -149,10 +125,6 @@ gsub("_.*", "", x) # Remove everything after "_"
 [Summary of 'gsub'](http://www.endmemo.com/program/R/gsub.php)
 
 ```r
-# Conver daily <--> Monthly
-ConvertDailyToMonthly(df)
-ConvertMonthlyToDaily(df, type = c("step", "smooth"))
-
 # Add comma for large numbers
 format(12345.678,big.mark=",",scientific=FALSE)
 
@@ -175,6 +147,35 @@ mutate(df,
   new.col1 = old.col1 - old.col2,
   new.col2 = new.col1 / old.col1 * 60)
 sample_n(df, 10)
+
+x <- 1:50
+case_when(
+  x %% 35 == 0 ~ "fizz buzz",
+  x %% 5 == 0 ~ "fizz",
+  x %% 7 == 0 ~ "buzz",
+  TRUE ~ as.character(x)
+)
+
+# Unquoting quosure
+my_group_by <- function(df, group_var) {
+  group_var <- enquo(group_var)
+
+  df %>%
+    group_by(!!group_var) %>%
+    summarise(a = mean(a))
+}
+my_group_by(df, g1)
+
+summary_var <- quo(a)
+df %>%
+  group_by(g1) %>%
+  summarise(
+    mean = mean(!!summary_var),
+    sd = sd(!!summary_var)
+  )
+)
+
+## See: https://github.com/rstudio/webinars/blob/master/39-dplyr-0.7.0/tidyeval.R
 
 ```
 

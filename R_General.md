@@ -96,10 +96,11 @@ read.csv(, stringsAsFactors=FALSE
 # Read in multiple files into a data frame. 
 ldply(paths, read.csv, stringAsFactors = FALSE)
 
-# tidyverse
+# Import
 readr::read_csv(url, skip = 6, col_types = "Dnnnnnn")
 jsonlite::read_jason()
 xml2::read_xml()
+curl::curl_download()
 
 # Read Excel: load all the worksheets in a workbook at once
 excel_sheets(path)

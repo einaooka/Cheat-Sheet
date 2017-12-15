@@ -16,4 +16,6 @@
 | Ctrl + shift + /   | reflow comments  | 
 | Alt + O            | Collapse All Folds | 
 | Alt + Shift + K    |Open chosrtcut help  |
+| Ctrl + Up          | List functions starting with typed letters  | 
+| Ctrl + R           | List defined objects including typed letters  |  
 

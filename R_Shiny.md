@@ -1,21 +1,23 @@
-#Shiny Cheat Sheet
+# Shiny Cheat Sheet
 
 #### Table of Contents
-1. [Basic](#basic)
+1. [Function reference](#function-reference)
 1. [Debugging](#debugging)
 1. [Download](#download)
 1. [Error Handling](#error-handling)
 2. [Interactivity](#interactivity)
 1. [Handsontable](#handsontable)
 
-### Basic
-#### Run
+### Run
 ```r
 library(shiny)
 runApp("shiny-app")
 ```
 
-#### Render/Output pair
+### Function reference
+https://shiny.rstudio.com/reference/shiny/1.0.5/
+
+##### Render/Output pair
 | Render        | Output           | 
 | ------------- |:-------------:| 
 | renderDataTable   | dataTableOutput | 

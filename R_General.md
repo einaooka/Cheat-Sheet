@@ -26,7 +26,7 @@ as.POSIXct(strptime(, "%m/%d/%Y %I:%M:00 %p"))
 
 ### Plots and Layouts
 
-####Layouts
+#### Layouts
 ```r
 plot.new() # start a new plot
 par(new=TRUE) # Overlay another plot
@@ -93,8 +93,15 @@ read.csv(, stringsAsFactors=FALSE
          , colClasses = classes # Specifying this makes reading faster
 )
 
+# Read in multiple files into a data frame. 
+ldply(paths, read.csv, stringAsFactors = FALSE)
+
+# tidyverse
+readr::read_csv(url, skip = 6, col_types = "Dnnnnnn")
+jsonlite::read_jason()
+xml2::read_xml()
+
 # Read Excel: load all the worksheets in a workbook at once
-path <- readxl_example("datasets.xlsx")
 excel_sheets(path)
 path %>%
   excel_sheets() %>%
@@ -104,9 +111,6 @@ path %>%
 # Identify column class
 tab5rows <- read.table("datatable.txt", header = TRUE, nrows = 100) 
 classes <- sapply(tab5rows, class) 
-
-# Read in multiple files into a data frame. 
-ldply(paths, read.csv, stringAsFactors = FALSE)
 
 # Check if data set already exists
 if(!exists("df")){}
@@ -127,6 +131,9 @@ gsub("_.*", "", x) # Remove everything after "_"
 ```r
 # Add comma for large numbers
 format(12345.678,big.mark=",",scientific=FALSE)
+
+# Assign itself as names
+purrr::set_names(x) # x is a vector
 
 ### library(reshape2)
 dcast()

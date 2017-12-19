@@ -86,7 +86,7 @@ box()
 
 ### Manipulate Data
 
-####Import & Export Data
+#### Import & Export Data
 ```r
 #csv
 read.csv(, stringsAsFactors=FALSE
@@ -103,6 +103,9 @@ xml2::read_xml()
 curl::curl_download()
 
 # Read Excel: load all the worksheets in a workbook at once
+library(readxl)
+library(dplyr)
+library(purrr)
 excel_sheets(path)
 path %>%
   excel_sheets() %>%
@@ -139,6 +142,9 @@ purrr::set_names(x) # x is a vector
 ### library(reshape2)
 dcast()
 melt()
+
+### tidyr
+gather(load.df, Month, Value, -Year) # For a data frame with Year, Jan, ..., Dec columns
 
 ### library(dplyr)
 filter(df, month == 1, day == 1)
@@ -187,7 +193,7 @@ df %>%
 
 ```
 
-####Filter & Subsetting
+#### Filter & Subsetting
 ```r
 # Modifying data frame
 df[,,drop=FALSE] # Preserving the type

@@ -121,7 +121,7 @@ if(!exists("df")){}
 
 ```
 
-####Reformat data
+#### Reformat data
 
 ```r
 # Remove commas from a data frame
@@ -129,6 +129,23 @@ gsub(",", "", df)
 for (col in 2:ncol(temp.df)) df[,col] <- as.numeric(gsub(",", "", df[,col]))
 df[,-1] <- lapply(df[,-1, drop=FALSE], function(x){as.numeric(gsub(",", "", x))}) 
 gsub("_.*", "", x) # Remove everything after "_"
+
+# Example
+files = c("tmp-project.csv", "project.csv", "project2-csv-specs.csv", "project2.csv2.specs.xlsx", "project_cars.ods"
+, "project-houses.csv", "Project_Trees.csv","project-cars.R","project-houses.r", "project-final.xls", "Project-final2.xlsx")
+
+# Hat means the beginnings
+grep("^Proj", files, value = TRUE)
+# Dollar means the end 
+grep("\\.csv$", files, value = TRUE)
+# OR
+grep("\\.csv$|\\.ods$", files, value = TRUE)
+grep("\\.(csv|ods)$", files, value = TRUE)
+# '.*' means 1 or more of any character(s) 
+grep("^(P|p)roject.*(csv|ods)$", files, value = TRUE)
+# Combination... 
+grep("(P|p)roject(\\_|\\-)[a-zA-Z]*\\.(csv|ods)$", files, value = TRUE)
+
 ```
 [Summary of 'gsub'](http://www.endmemo.com/program/R/gsub.php)
 
@@ -210,7 +227,7 @@ isBetween(3:10, start=1, end=5)
 isBetween(as.Date("2012-1-1"), startDate, endDate)
 ```
 
-####NA manipulation
+#### NA manipulation
 ```r
 # Omit rows with incomplete data. 
 df=na.omit(df)
@@ -223,7 +240,7 @@ na.spline( , na.rm=FALSE) # cubic spline interpolation
 na.zero() # replace by zero. 
 ```
 
-####Multicore run
+#### Multicore run
 
 ```r
 library(foreach)
@@ -285,7 +302,7 @@ Position(is.factor, df)
 f <- partial(sum, na.rm=TRUE)
 ```
 
-####Other Utility Functions
+#### Other Utility Functions
 ```r
 # Remove objects
 rm(list=ls())
@@ -310,7 +327,7 @@ deparse(substitute())
 eval(quote())
 ```
 
-####Expression
+#### Expression
 ```r
 expression(phi)
 expression(mu)

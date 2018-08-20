@@ -16,6 +16,9 @@ DAY/MONTH/YEAR
 DATEADD()
 DATEDIFF()
 
+-- First Day of Month
+SELECT DATEADD(month, DATEDIFF(month, 0, @mydate), 0) AS StartOfMonth
+
 ```
 
 ## NULL

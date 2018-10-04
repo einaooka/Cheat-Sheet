@@ -9,6 +9,15 @@ Ctrl + K + U  - Uncomment
 - Use decimal instead of float
 - Use tinyint (0 ~ 255)> smallint (-32,768 ~ 32,767) > int (-2,147,483,648 ~ 2,147,483,647)
 
+- Decimal Size
+
+| Precision       | Storage bytes  |
+| ------------- |:-------------:|
+| 1 - 9    | 5 | 
+| 10-19     | 9     |
+| 20-28 | 13      | 
+| 29-38 | 17     | 
+
 ```sql
 CAST(BusinessEntityID as nvarchar(10)) 
 

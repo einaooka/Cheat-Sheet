@@ -7,7 +7,7 @@
 5. [htmlwidgets](#htmlwidgets)
 7. [Colors](#colors)
 9. [Develop Packages](#develop-packages)
-10.[SQL](#SQL)
+10. [SQL](#SQL)
 
 
 ### Date Time Manipulation
@@ -394,7 +394,29 @@ build_vignettes()
 ```
 
 ### SQL
+```r
+# Database connection
+dsn <- "Driver={ODBC Driver 17 for SQL Server}; Server=SQLPAnalytics; Database=Ozette; Uid=uid; pwd=pass;"
+con <- dbConnect(odbc::odbc(), .connection_string = dsn)
+channel <- odbcDriverConnect(dsn)
 
+RunID <- na.zero(as.numeric(dbGetQuery(con, glue("SELECT max(RunID) FROM {schema}.Runs;")))) + 1
+# Write Run info 
+df <- data.frame(RunID = RunID
+                 , RunType = env.run
+                 , RunStartDateTimeUTC = format(Sys.time(), tz = "UTC")
+                 , RunEndDateTimeUTC = NA
+                 , CreateUser = Sys.getenv("USERNAME")
+                 , IsLatest = 0)
+sqlSave(channel, df, tablename = glue(schema, ".Runs"), rownames = FALSE, append = TRUE)
+
+# Database run updates
+dbGetQuery(con, glue("UPDATE {schema}.Runs SET IsLatest = 0 WHERE IsLatest = 1"))
+dbGetQuery(con, glue("UPDATE {schema}.Runs SET IsLatest = 1 WHERE RunID = {RunID}"))
+dbGetQuery(con, glue("UPDATE {schema}.Runs SET RunEndDateTimeUTC = '{format(Sys.time(), tz = \"UTC\")}' WHERE RunID = {RunID}"))
+dbDisconnect(con)
+close(channel)
+```
 
 
 

@@ -148,6 +148,9 @@ SET LastName = 'Smith', FirstName = 'ABC'
 WHERE LastName = 'Smith'
 
 DROP TABLE #Table
+
+CREATE CLUSTERED INDEX CI_table1 ON Table1(RunID)
+CREATE INDEX IX_table1col1 ON table1 (col1)
 ```
 
 ## Stored Procedures

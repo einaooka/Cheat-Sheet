@@ -2,7 +2,8 @@
 
 | shortcut           | action          | 
 | ------------------ |:-------------:| 
-| Ctrl + 1           | Source        |
+| Ctrl + Shift + 1           | Source        |
+| Ctrl + Shift + 2   | Console  |
 | Ctrl + L           | Clear Console | 
 | F3                 | Find Next | 
 | F2                 | Jump to function | 

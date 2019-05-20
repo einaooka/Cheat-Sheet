@@ -1,5 +1,7 @@
 # Shortcuts
 
+https://www.r-bloggers.com/r-studio-shortcuts-and-tips/
+
 | shortcut           | action          | 
 | ------------------ |:-------------:| 
 | Ctrl + Shift + 1           | Source        |

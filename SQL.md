@@ -153,6 +153,8 @@ CREATE CLUSTERED INDEX CI_table1 ON Table1(RunID)
 CREATE INDEX IX_table1col1 ON table1 (col1)
 ```
 
+[Changing column order](https://docs.microsoft.com/en-us/sql/relational-databases/tables/change-column-order-in-a-table?view=sql-server-2017)
+
 ## Stored Procedures
 ```sql
 CREATE PROC ups_Test

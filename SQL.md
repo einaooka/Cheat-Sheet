@@ -129,6 +129,9 @@ FROM person.Person
 ```
 
 ## Modify Data
+
+Templates: W:\Information Technology\dept\Development\Code\Templates\SQL 2016
+
 ```sql
 CREATE TABLE table (c1 INT, c2 INT)
 CREATE TABLE #table (c1 INT, c2 INT) -- # makes the table into a temp table
@@ -151,6 +154,11 @@ DROP TABLE #Table
 
 CREATE CLUSTERED INDEX CI_table1 ON Table1(RunID)
 CREATE INDEX IX_table1col1 ON table1 (col1)
+
+-- Add a named foreign key
+ALTER TABLE HourlyHistoricals
+ADD CONSTRAINT FK_HourlyHistoricalsStochasticVariableID
+FOREIGN KEY (StochasticVariableID) REFERENCES StochasticVariables(StochasticVariableID);
 ```
 
 [Changing column order](https://docs.microsoft.com/en-us/sql/relational-databases/tables/change-column-order-in-a-table?view=sql-server-2017)

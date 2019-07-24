@@ -8,6 +8,10 @@ git pull --prune
 # Delete a local brunch 
 git branch -D the_local_branch
 
+# Activate push and pull button after pushing a locall repo to remote: 
+push -u origin master
+https://www.r-bloggers.com/things-i-forget-pushpull-greyed-out-in-rstudio/
+
 # Tag a commit
 git tag tag_name sha 
 

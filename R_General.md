@@ -19,6 +19,16 @@ GetDateTable(dates, c("Date", "pk.nHours", "opk.nHours"))
 as.POSIXct(strptime(, "%m/%d/%Y %H:%M"))
 as.POSIXct(strptime(, "%m/%d/%Y %I:%M:00 %p"))
 
+# Time zone
+tz <- switch (market
+              , PNW = "America/Los_Angeles"
+              , CAISO = "America/Los_Angeles"
+              , MISO = "EST"                   # Does not follow Daylight Saving
+              , PJM = "US/Eastern"
+              , SPP = "US/Central"
+              , SE = "EST"
+              ) 
+
 ```
 
 **Note**:

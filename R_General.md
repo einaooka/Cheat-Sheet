@@ -2,6 +2,7 @@
 
 #### Table of Contents
 1. [Date Time Manipulation](#date-time-manipulation)
+2. [Utility Functions](#utility-functions)
 3. [Plots and Layouts](#plots-and-layouts)
 4. [Manipulate Data](#manipulate-data)
 5. [htmlwidgets](#htmlwidgets)
@@ -13,9 +14,6 @@
 ### Date Time Manipulation
 
 ```r
-dates <- seq(as.Date("2015-1-1"),as.Date("2020-1-1"), by=1)
-GetDateTable(dates, c("Date", "pk.nHours", "opk.nHours"))	
-
 as.POSIXct(strptime(, "%m/%d/%Y %H:%M"))
 as.POSIXct(strptime(, "%m/%d/%Y %I:%M:00 %p"))
 
@@ -35,17 +33,37 @@ tz <- switch (market
 * Off- Peak Hours (HE): 1-6, 23-24
 * On-Peak Hours (HE):7-22 
 
+### Utility Functions
+```r
+# Remove objects
+rm(list=ls())
+rm(list=grep("temp", ls(), value=TRUE)) # Remove all object containing "temp"
+
+# Pause
+readline("Press <return to continue")
+Sys.sleep(0.1)
+
+# record time 
+ptm <- proc.time()
+proc.time() - ptm
+
+# File manipulation
+file.copy(from, to, overwrite = TRUE)
+file.exists(...)
+
+# Check if data set already exists
+if(!exists("df")){}
+
+# progress bars
+cat(glue("Iteration {i}; Step {j}", "\r"))
+```
+
 ### Plots and Layouts
 
 #### Layouts
 ```r
 plot.new() # start a new plot
 par(new=TRUE) # Overlay another plot
-
-Layout0()
-Layout6(title = 2)
-Layout12(title = 3)
-NPlotsLayout(n, withTitleSpace = FALSE)
 
 par(mfrow=c(1,1), mar=c(4,4,4,2) + 0.1, oma=c(0,0,0,0))
 par(mfrow=c(1,2), mar=c(4,3,4,1) + 0.1, oma=c(0,0,0,0))
@@ -76,7 +94,7 @@ legend("topleft"
        
 ```
 
-Plotting functions
+#### Plotting functions
 ```r
 
 # returns plot ranges
@@ -84,15 +102,6 @@ par("usr")
 text(par("usr")[1:2] %*% c(0.1,0.9), par("usr")[3:4] %*% c(0.1,0.9), "text")  # upper right
 text(par("usr")[1:2] %*% c(0.9,0.1), par("usr")[3:4] %*% c(0.1,0.9), "text") # upper left
 
-# Draw grid lines
-DrawHLines(ylim)
-Add.QlyShades(2010:2020)
-
-# bar plot example
-midpts <- barplot(height, names.arg
-                  , col=CA(2,0.4), border=CA(2,1), ylab="", ylim=c(0,1800))
-text(x=midpts, y=height, c("text", "text"), pos=1, col=CA(2,1))
-box()
 ```
 
 ### Manipulate Data
@@ -127,17 +136,14 @@ path %>%
 tab5rows <- read.table("datatable.txt", header = TRUE, nrows = 100) 
 classes <- sapply(tab5rows, class) 
 
-# Check if data set already exists
-if(!exists("df")){}
-
 ```
 
 #### Reformat data
 
+[Summary of 'gsub'](http://www.endmemo.com/program/R/gsub.php)
+
 ```r
 # Remove commas from a data frame
-gsub(",", "", df)
-for (col in 2:ncol(temp.df)) df[,col] <- as.numeric(gsub(",", "", df[,col]))
 df[,-1] <- lapply(df[,-1, drop=FALSE], function(x){as.numeric(gsub(",", "", x))}) 
 gsub("_.*", "", x) # Remove everything after "_"
 
@@ -158,7 +164,6 @@ grep("^(P|p)roject.*(csv|ods)$", files, value = TRUE)
 grep("(P|p)roject(\\_|\\-)[a-zA-Z]*\\.(csv|ods)$", files, value = TRUE)
 
 ```
-[Summary of 'gsub'](http://www.endmemo.com/program/R/gsub.php)
 
 ```r
 # Add comma for large numbers
@@ -166,10 +171,6 @@ format(12345.678,big.mark=",",scientific=FALSE)
 
 # Assign itself as names
 purrr::set_names(x) # x is a vector
-
-### library(reshape2)
-dcast()
-melt()
 
 ### tidyr
 gather(load.df, Month, Value, -Year) # For a data frame with Year, Jan, ..., Dec columns
@@ -223,27 +224,14 @@ df %>%
 
 #### Filter & Subsetting
 ```r
-# Modifying data frame
-df[,,drop=FALSE] # Preserving the type
-df$col <- NULL # Removing columns
 
 # vector contains a string 
-grep("string", vector) # returns index number
-grep("string", vector, value=TRUE) # returns values
 grep("string1 | string2 | string3", vector) # returns index number
-grepl("string", vector) # returns TRUE/FALSE
 
-# 
-isBetween(3:10, start=1, end=5)
-isBetween(as.Date("2012-1-1"), startDate, endDate)
 ```
 
 #### NA manipulation
 ```r
-# Omit rows with incomplete data. 
-df=na.omit(df)
-
-#Replace NA
 library(zoo)
 na.approx( , na.rm=FALSE) # Fill in all missing data by liner interpolation or previous values
 na.locf(, na.rm = FALSE) # Last observation carried forward
@@ -311,25 +299,6 @@ Position(is.factor, df)
 ```r
 # Partial Function Application by pryr::partial()
 f <- partial(sum, na.rm=TRUE)
-```
-
-#### Other Utility Functions
-```r
-# Remove objects
-rm(list=ls())
-rm(list=grep("temp", ls(), value=TRUE)) # Remove all object containing "temp"
-
-# Pause
-readline("Press <return to continue") 
-
-# record time 
-ptm <- proc.time()
-proc.time() - ptm
-
-# File manipulation
-file.copy(from, to, overwrite = TRUE)
-file.exists(...)
-
 ```
 ### Meta-Programming
 

@@ -279,6 +279,14 @@ vapply(lst, fun, numeric(1)) # returns a vector of numeric values.
 vapply(lst, fun, character(2)) # returns a matrix with 2 rows of strings.  
 ```
 
+Formula manipulation
+```r
+lm(as.formula(paste(vr, "~ x")), data)
+lm(mtcars[[vr]] ~ mtcars$x) 
+lm(get(vr) ~ hp, data)
+lm(eval(parse(text = vr)) ~ hp, data)
+```
+
 #### Reduce: extend a function that works with 2 inputs into a function that can deal with any number of inputs. 
 ```r
 # Example

@@ -18,13 +18,34 @@
 2. [purrr](#purrr)
 3. [broom](#broom)
 
-##magrittr
+## magrittr
 ```r
 df %$% plot(x,y)  # Makes lhs visible to rhs
 x %<>% sqrt() # compute & updates lhs 
 ```
+## rlang
+```r
+# curly-curly
+count_groups <- function(df, groupvar){
+  df %>% 
+    group_by({{ groupvar }}) %>% 
+    count()
+}
+```
 
-##dplyr
+## Pivot
+```r 
+squirrels %>% 
+  count(date, climbing) %>% 
+  pivot_wider(names_from = climbing, values_from = n, names_prefix = "climbing_") %>% 
+  head(2) %>% 
+  kable() %>% 
+  kable_styling()
+
+```
+
+
+## dplyr
 https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
 ```r
 df %<>% 
@@ -40,7 +61,7 @@ left_join
 
 ```
 
-##tidyr
+## tidyr
 ```r
 # collapse multiple columns into key-value pairs, i.e. melt in reshape2
 gather(data, new.key.name, new.value.name, cols) 
@@ -55,7 +76,7 @@ separate(data, col, into.cols, pattern, convert=TRUE)
 
 ```
 
-##readr
+## readr
 ```r
 df <- read_csv() #comma-separated
 read_delim() #any-other-char-separated
@@ -63,9 +84,9 @@ read_delim() #any-other-char-separated
 problems(df)$row
 ```
 
-##readxl
+## readxl
 
-##lubridate
+## lubridate
 ```r
 # Format
 ymd(c("2001-01-12", "2011/3/31"))
@@ -86,7 +107,7 @@ ymd(20150601) + weeks(2) + days(4)
 jan31 %m+% months(0:11)
 ```
 
-##stringr
+## stringr
 ```r
 str_c() # paste0
 
@@ -117,7 +138,7 @@ str_replace(strings, phone, "XXX-XXX-XXXX")
 str_replace_all(strings, matches)
 ```
 
-##ggplot2
+## ggplot2
 http://docs.ggplot2.org/current/index.html
 https://blog.rstudio.org/2016/11/14/ggplot2-2-2-0/
 ```
@@ -151,13 +172,13 @@ ggplot(bps2, aes(x=obs_date, ymin=dia, ymax=sys, fill=Name)) +
       
 ```
 
-##rvest
+## rvest
 
-##devtools
+## devtools
 
-##roxygen2
+## roxygen2
 
-##testthat
+## testthat
 ```r
 foo = function(a, b=1){ a + b }
 expect_equal(foo(1), 2)
@@ -173,10 +194,10 @@ test_that("foo works", {
 
 ```
 
-##packrat
+## packrat
 
 
-##feather
+## feather
 
 ## purrr
 *dplyr for vectors.* 

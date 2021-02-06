@@ -133,3 +133,6 @@ output$table.xxx <- renderRHandsontable({
 })
 
 ```
+### Other plotting packages
+https://echarts4r.john-coene.com/index.html
+

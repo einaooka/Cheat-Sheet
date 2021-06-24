@@ -1,3 +1,6 @@
+# rebase (for synching sub-branch with master)
+git rebase origin/master
+
 # Uncommit
 git reset HEAD~1
 https://stackoverflow.com/questions/927358/how-do-i-undo-the-last-commits-in-git

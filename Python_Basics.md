@@ -1,3 +1,6 @@
+## Notes
+![image](https://user-images.githubusercontent.com/16261251/186967480-6e78df39-97cb-4dfb-9a90-96496b5d1e67.png)
+
 
 ## String
 ```python

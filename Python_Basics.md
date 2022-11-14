@@ -1,5 +1,36 @@
-## Notes
-![image](https://user-images.githubusercontent.com/16261251/186967480-6e78df39-97cb-4dfb-9a90-96496b5d1e67.png)
+## One-liner
+
+List
+```python
+numbers = [1, 2, 3, 5, 7, 8, 9, 10]
+even_square = [n*n for n in numbers if n%2 == 0]
+
+# Don't do this
+even_square = []
+for num in numbers:
+    if num%2 == 0:
+        even_square.append(num*num)
+```
+
+dictionary 
+```python
+original = {'Key1':'Value1','Key2':'Value2','Key3':'Value3'}
+flipped = {value: key for key, value in original.items()}
+
+# Don't do this
+flipped = {}
+for key, value in original.items():
+    flipped[value] = key
+```
+Lambda
+```python
+double = lambda x: x*2
+print(double(4))
+
+# Instead of 
+def multiply_by_2(x):
+    x*2
+```
 
 
 ## String
@@ -189,3 +220,16 @@ for lab, row in df.iterrows() :
 # Apply function (e.g. length function)
 df["newcol"] = df["var1"].apply(len)
 ```
+
+```python
+# Swap (or Map)
+import pandas as pd
+s = pd.Series(['Math', 'Science', 'Computer'])
+s = s.map({'Math': 'Algebra', 'Science':'Physics', 'Computer': 'Python'})
+
+# Filter
+s = pd.Series([1, 2, 3, 4, 5])
+result = pd.Series(filter(lambda x: x > 3, s))
+```
+
+

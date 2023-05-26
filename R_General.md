@@ -39,6 +39,10 @@ tz <- switch (market
 rm(list=ls())
 rm(list=grep("temp", ls(), value=TRUE)) # Remove all object containing "temp"
 
+# write r objects into a text file
+dput()
+dget()
+
 # Pause
 readline("Press <return to continue")
 Sys.sleep(0.1)

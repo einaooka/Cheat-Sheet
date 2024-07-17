@@ -5,15 +5,33 @@
 - [string manipulation](https://github.com/wilfredinni/python-cheatsheet/blob/master/docs/cheatsheet/manipulating-strings.md)
 
 ```python
-y = math.log(x) if x > 0 else np.nan
 
-[s.capitalize() for s in string]
-[s for s in t if s.isupper()]
+# Comprehension
+[expr for value in collections if condition] # list
+[expression for item1 in iterable1 for item2 in iterable2 ... if condition] # nested list
+{key-expr: value-expr for value in collection if condition} # dictionary
+{expre for value in collection if condition} # set 
 
 any([False, False, True])
 
+# if-else
+if x <0:
+  do_this
+elif x == 0:
+  do_that
+else:
+  do_such
+
+y = math.log(x) if x > 0 else np.nan
+
+# for loop
+for i in range(len(x)):
+  do_this
+  continue # skip to the next loop
+  break # exit the for loop
 ```
-# datetime handling
+
+# datetime
 ```python
 import datetime
 import pytz
@@ -46,31 +64,68 @@ obj + datetime.timedelta(days=90, hours=1)
 ```
 - [Python strftime cheatsheet](https://strftime.org/)
 
+
+# Data Types
+
+```python
+# tuple - immutable
+nested_tup = (4, 8, None), ('foo', 8)
+nested_tup + (0, 5)
+a,b, *_ = nested_tup
+
+for key, value in zip(key_lst, value_lst)
+  do_this(key, value)
+
+for index, value in enumerate(values)
+  do_something(value)
+
+# list - mutable
+lst.append(obj) # add one obj
+lst.axtend(objs) # add multiple obj
+lst.pop(idx) # removes and returns obj at the index
+lst.remove(obj) # remove the first of the matching item
+lst.sort()
+
+lst[-4:] # index relative from the end
+lst[::2] # every other element
+lst[::-1] # reverse 
+
 # dictionary
+dct = {"a": "some value", "b": [1, 2, 3, 4]}
+dict.get(key, default_value) # default None
+list(dct.keys())
+list(dct.values())
 
 # sets
-```python
+st1 = set([2,2,2,1,3,3]) # stores unique elements
+st1.union(st2); st1 | st2
+st1.intersection(st2); st1 & st2
+st1.difference(st2) # elements in st1 that are not in st2
+st1.issubset(st2)
 
 ```
 
+# Aggregation
 
+# vectorized operation
+```python
+apply_to_list(ints, lambda x: x*2)
+map()
 
-### Errors
-- Exception: Base class for all built-in exceptions except StopIteration and SystemExit.
-- AttributeError: Raised when an attribute reference or assignment fails.
-- IOError: Raised when an I/O operation (such as a print statement, the built-in open() function or a method of a file object) fails for an I/O-related reason, e.g., "file not found" or "disk full" (not used in Python 3, replaced by OSError).
-- ImportError: Raised when an import statement fails to find the module definition or when a from ... import fails to find a name that is to be imported.
-- IndexError: Raised when a sequence subscript is out of range.
-- KeyError: Raised when a dictionary key is not found.
-- NameError: Raised when a local or global name is not found.
-- OSError: Raised for operating system-related errors.
-- SyntaxError: Raised when the parser encounters a syntax error.
-- TypeError: Raised when an operation or function is applied to an object of inappropriate type.
-- ValueError: Raised when a built-in operation or function receives an argument that has the right type but an inappropriate value.
-- ZeroDivisionError: Raised when the second argument of a division or modulo operation is zero.
+```
 
+# Error Handling
+```python
+try:
+  do_this
+exceptValueError:
+  do_that
+finally:
+  close_it
+```
+[List of exceptions](https://www.w3schools.com/python/python_ref_exceptions.asp)
 
-### Underscore 
+# Underscore 
 
 ```python
 5+3
@@ -82,11 +137,9 @@ _var # private variable or method
 var_ # avoid confilict with a keyword
 __var # avoid conflict with subclasses
 __var__ # reserved for special use
-
-
 ```
 
-### Shortcut keys
+# Shortcut keys
 - Insert a new line directly below, regardless of where you are in the current line: ^ + ⏎
 - Duplicate your current row up or down: ⎇ + ⇧ + ↑/↓
 - Move the current row up or down: ⎇ + ↑/↓

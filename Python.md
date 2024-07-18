@@ -31,7 +31,7 @@ for i in range(len(x)):
   break # exit the for loop
 ```
 
-# datetime
+# Datetime
 ```python
 import datetime
 import pytz
@@ -63,7 +63,6 @@ obj + datetime.timedelta(days=90, hours=1)
 
 ```
 - [Python strftime cheatsheet](https://strftime.org/)
-
 
 # Data Types
 
@@ -103,6 +102,66 @@ st1.intersection(st2); st1 & st2
 st1.difference(st2) # elements in st1 that are not in st2
 st1.issubset(st2)
 
+```
+
+# NumPy
+```python
+Import numpy as np
+
+# Generate arrays
+ar2 = np.array([[1,2,3], [4,5,6]])
+np.zeros((3,6)) # matrix of dim = (3,6) with entries zero
+np.arange(32).reshape((8,4))
+ar2.dtype
+ar2.shape
+
+# slicing
+ar[0][2]
+ar[0,2]
+ar2[:2, :1]
+ar2[[2],:] # Return 2d array without dropping dim 
+
+slice = ar[5:8] # reference to the original ary
+newslice = ar[5:8].copy # create a new object
+
+# matrix operation
+arr.T
+np.dot(arr.T, arr)
+
+arr.sum()
+arr.mean()
+arr.mean(axis =0)
+arr.cumsum()
+
+bool.any()
+bool.all()
+
+# np set operations
+np.unique(arr) # faster than using sets
+np.in1d(arr1, arr2)
+intersect1d(x,y)
+union1d(x,y)
+setdiff1d(x,y)
+
+
+# random numbers
+np.ramdom.standard_normal(size = (4,4))
+np.random.uniform()
+np.random.choice(data, size=10, replace=True)
+
+# conditional logic
+np.where(cond, xarr, yarr) # xarr and yarr can be scalr or an array
+np.where(arr > 0, 2, arr) # set only positive values to 2
+```
+
+# Plot
+```python
+import matplotlib.pyplot as plot
+
+plot.colorbar()
+plt.title()
+
+plt.close("all")
 ```
 
 # Aggregation

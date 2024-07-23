@@ -143,7 +143,6 @@ intersect1d(x,y)
 union1d(x,y)
 setdiff1d(x,y)
 
-
 # random numbers
 np.ramdom.standard_normal(size = (4,4))
 np.random.uniform()
@@ -152,6 +151,63 @@ np.random.choice(data, size=10, replace=True)
 # conditional logic
 np.where(cond, xarr, yarr) # xarr and yarr can be scalr or an array
 np.where(arr > 0, 2, arr) # set only positive values to 2
+```
+# pandas
+```python
+import pandas as pd
+
+# series - extension of np.array and dictionary
+srs = pd.Series([1,2,3,4], index=["a", "b", "c", "d"]) # need indexs
+srs.index
+srs.name
+srs.index.name
+srs['a']
+srs.isna()
+srs.notna()
+srs.map(f) 
+
+# data frame
+df = pd.DataFrame(arr2d)
+df.col1 or df["col1"]
+
+del df['col1'] # remove a column
+df.drop(index = [...], columns = [...])
+
+# index
+srs.reindex([...]) # rearrange the data according to the new index
+srs.reindex([...], method = "ffill", limit, fill_value) # missing dat will be forward-filled with the previous observation. for backward-fill, "bfill". Use limit for max fill gap size. 
+df.reindex(columns = [...])
+df.index.is_unique
+
+df.sort_index(axis="columns", ascending=False)
+df.sort_values(["a", "b"])
+
+srs.unique()
+srs.value_counts()
+srs.isni()
+
+# filtering
+df.loc([...]) # ... is label index, or boolean
+df.iloc([...]) # integer location index
+df.loc[row]
+df.loc[:, cols]
+
+# operation
+df.sum(axis="columns", skipna=False)
+df.mean(axis, askipna, level)
+df.idxmax()
+df.cumsum()
+df.describe()
+# count, describe, min, max, argmin, argmax, idxmin, idxmax, quantile, sum, mean, median, mad, prod, var, std, skew, kurt, cumsum, cummin, cummax, cumprod, diff, pct_change
+srs1.corr(srs2)
+df.corr(method='pearson')  # 'kendall', and 'spearman' are the other 2 options
+df.corrwith(drop, method) # pairwise correlation
+
+df1.add(df2, fill_value = 0)
+df.sub(srs, axis = "index")
+df.apply(f, axis = "columns") # apply across the columns, once per row
+df.applymap(f) # element-wise
+
 ```
 
 # Plot

@@ -179,12 +179,20 @@ srs.reindex([...], method = "ffill", limit, fill_value) # missing dat will be fo
 df.reindex(columns = [...])
 df.index.is_unique
 
+# categories (factors)
+df[col1] = df[col1].astype('category')
+c = df[col1].array
+c.categories
+c.codes
+dict(enemerate(c.categories))
+
 df.sort_index(axis="columns", ascending=False)
 df.sort_values(["a", "b"])
 
 srs.unique()
 srs.value_counts()
-srs.isni()
+srs.isna()
+pd.value_counts(srs)
 
 # filtering
 df.loc([...]) # ... is label index, or boolean
@@ -193,6 +201,12 @@ df.loc[row]
 df.loc[:, cols]
 
 # operation
+df1.add(df2, fill_value = 0)
+df.sub(srs, axis = "index")
+df.apply(f, axis = "columns") # apply across the columns, once per row
+df.applymap(f) # element-wise
+
+# statistics
 df.sum(axis="columns", skipna=False)
 df.mean(axis, askipna, level)
 df.idxmax()
@@ -203,12 +217,61 @@ srs1.corr(srs2)
 df.corr(method='pearson')  # 'kendall', and 'spearman' are the other 2 options
 df.corrwith(drop, method) # pairwise correlation
 
-df1.add(df2, fill_value = 0)
-df.sub(srs, axis = "index")
-df.apply(f, axis = "columns") # apply across the columns, once per row
-df.applymap(f) # element-wise
+rnd = np.random.default_rng(seed=12345)
+draws = rng.standard_norma(1000)
+bins = pd.qcut(draws, 4, labels=['Q1', 'Q2', 'Q3', 'Q4'])
+bins = pd.Series(bins, name = 'quartile')
+results = (pd.Series(draws)
+            . groupby(bins)
+            .agg(['mean', 'min', 'max'])
+            . reset_index())
+```
+
+## pandas data imports
+```python
+df = pd.read_csv("filename.csv", names=['col1', 'col2', ...], idex_col = ["Date", ...], skiprows[0,1,..], nrows = 5, parse_dates)
+df.to_csv("filename.csv", index=False, columns['col1', 'col3'])
+
+df = read_excel("fielname.xlsx", sheet_name='sheet1')
+
+df.to_hdf("filename.h5", "obj", format="table")
+pd.read_hdf("filename.h5", "obj", where=["index < 5"])
+
+import requests
+resp = requests.get(url)
+resp.raise_for_status
+data = resp.json()pd.DataFrame(data)
+
+import sqlalchemy as sqla
+db = sqla.create_engine(srt_connection)
+pd.read_sql(qry)
+```
+
+## pandas data wrangling
+```python
+np.nan
+df.dropna(axis = "index") # drops rows with any NA
+df.fillna(0)
+df.fillna({col1: 0.5, col2: 0})
+df.fillna(method="ffill") # For backward-fill, "bfill"
+df.replace(-999, na.nan)
+df.replace({-999: np.nan, -1000: 0})
+
+df.duplicated(0
+df.drop_duplicates(subset=["col1"])
+
+df[newcol] = df[col1].map(dict) # dict maps col1 to values
+dim.take(values) # where dim is a lookp series with keys, and values are enumerated value series.  
+
+categories = pd.cut(data, 4, precision = 2)
+pd.qcut()  # quantile cut
+pd.value_counts(categories)
+
+df.sample(n=10, replace=True)
+df = df[col1].join(df.get_dummies(df[col2], prefix="x")) # change a factor column into indicator columns
 
 ```
+
 
 # Plot
 ```python

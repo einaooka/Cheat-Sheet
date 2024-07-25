@@ -178,6 +178,8 @@ srs.reindex([...]) # rearrange the data according to the new index
 srs.reindex([...], method = "ffill", limit, fill_value) # missing dat will be forward-filled with the previous observation. for backward-fill, "bfill". Use limit for max fill gap size. 
 df.reindex(columns = [...])
 df.index.is_unique
+df.index.name = "item"
+df.columns.name = "item"
 
 # categories (factors)
 df[col1] = df[col1].astype('category')
@@ -270,6 +272,32 @@ pd.value_counts(categories)
 df.sample(n=10, replace=True)
 df = df[col1].join(df.get_dummies(df[col2], prefix="x")) # change a factor column into indicator columns
 
+# hierarchical indexing
+df.index.nlevels
+df.set_index(["c", "d"], drop = True) # Use columns as indexes
+df.reset_index() # move index into columns
+
+pd.merge(df1, df2, on=["key1", "key2"], how = "outer", suffixes = ("_left", "_right")) # default: "inner". how = "outer", "left" or "right"
+pd.merge(df1, df2, left_on="lkey", right_on="rkey")
+pd.merge(df1, df2, left_on="lkey", right_index=True)
+df1.join(df2, how="outer") # merge with indexes. default "left"  
+
+np.concatanate([arr, arr], axis=1)
+pd.concat([s1, s2, s3], axis="columns", keys=["one", "two", "three"])
+pd.concat([df1, df2], ignore_index=True)
+
+df.swaplevel("key1", "key2")
+df.sort_index(level=1)
+df.groupby(level='key1', axis="index").sum()
+
+# pivoting
+data.unstack(level="state", dropna=False) # pivot a long table to a short table
+data.stack() # melt a short table to a long table
+long_data = (data.stack()
+              .reset_index()
+              .rename(columns={0:"value"}))
+pivoted = long_data.pivot(index="date", columns="item", values="value")
+pd.melt(df, id_vars="key", vAlue_vars=["A", "B"])
 ```
 
 

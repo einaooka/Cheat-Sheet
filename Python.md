@@ -302,9 +302,11 @@ pd.melt(df, id_vars="key", vAlue_vars=["A", "B"])
 
 
 # Plot
-[matplotlib gallery](https://matplotlib.org/stable/gallery/index.html)
-[seaborn gallery](https://seaborn.pydata.org/examples/index.html)
-[plotly](https://plotly.com/python/)
+
+## matplotlib
+- [matplotlib gallery](https://matplotlib.org/stable/gallery/index.html)
+- [cheat sheet](https://matplotlib.org/cheatsheets/_images/cheatsheets-1.png)
+- [cheet sheet 2](https://matplotlib.org/cheatsheets/_images/cheatsheets-2.png)
 
 ```python
 import matplotlib.pyplot as plt
@@ -341,6 +343,28 @@ fig.savefig("fig.pdf", dpi)
 # Show all figures at once 
 plt.show()
 ```
+## data frame plotting
+[seaborn gallery](https://seaborn.pydata.org/examples/index.html)
+```python
+import seaborn as sns
+
+fig, axes = plt.subplots(2,1)
+srs.plot() # line plot
+df.plot.bar()
+
+# style
+sns.set_style("whitegrid")
+
+sns.barplot(x = "col1", y="col2", data=df, orient="h")
+srs.plot.hist(bins=50)
+sns.histplot(values, bins=100)
+ax = sns.regplot(x="col1", y="col2", data=df)
+ax.title(label)
+
+sns.pairplot(df, diag_kind="kde", plot_kws={"alpha":0.2})
+```
+## plotly
+[plotly](https://plotly.com/python/)
 
 # Aggregation
 

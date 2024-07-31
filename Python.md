@@ -169,6 +169,7 @@ srs.map(f)
 # data frame
 df = pd.DataFrame(arr2d)
 df.col1 or df["col1"]
+df.info()
 
 del df['col1'] # remove a column
 df.drop(index = [...], columns = [...])
@@ -288,9 +289,29 @@ pd.concat([df1, df2], ignore_index=True)
 
 df.swaplevel("key1", "key2")
 df.sort_index(level=1)
-df.groupby(level='key1', axis="index").sum()
+```
+
+## pandas aggregation
+```python
+df.groupby("key1", dropna=False, as_index=False, group_keys=False).mean()
+df["col1"].groupby(df["key1", "key2"]).mean()  # keys can be any arrays of the correct length, or functions like len
+df.groupby("key").agg([("ave", "mean"), "std", ("calc1", custom_function)])  # (name, function)
+df.groupby("key").agg({"col1": np.max, "col2": ["sum", "mean"]}) # apply different agg functions to different columns
+
+# groupby methods
+# mean, size, count, min, max, quantile, sum, ...
+
+df.groupby("key").apply(f, arg1, arg2, ...) # f returns a panda object
+
+df.groupby("key").transform('mean') # f returns scaler. transform returns the same size as input
 
 # pivoting
+# unstack(): Converts long format to wide format by moving index levels to columns.
+# stack(): Converts wide format to long format by moving columns to index levels.
+# pivot(): Reshapes data from long to wide format using specified index, columns, and values.
+# melt(): Converts wide format to long format by unpivoting columns into rows.
+# pivot_table(): Creates pivot tables with aggregation, similar to pivot() but with more functionality for summarizing data.
+
 data.unstack(level="state", dropna=False) # pivot a long table to a short table
 data.stack() # melt a short table to a long table
 long_data = (data.stack()
@@ -298,8 +319,11 @@ long_data = (data.stack()
               .rename(columns={0:"value"}))
 pivoted = long_data.pivot(index="date", columns="item", values="value")
 pd.melt(df, id_vars="key", vAlue_vars=["A", "B"])
-```
 
+df.pivot_table(index=["col1", "col2"])
+df.pivot_table(index=["col1", "col2"], columns='col3', values=["col4", "col5"], aggfun=mean, fill_value=0, dropna)
+
+```
 
 # Plot
 

@@ -10,7 +10,9 @@
 [expr for value in collections if condition] # list
 [expression for item1 in iterable1 for item2 in iterable2 ... if condition] # nested list
 {key-expr: value-expr for value in collection if condition} # dictionary
-{expre for value in collection if condition} # set 
+{expre for value in collection if condition} # set
+
+function(*args) # * unpacks a lit.  Here, funciton takes multiple arguments and args a list of arguments
 
 any([False, False, True])
 
@@ -29,9 +31,17 @@ for i in range(len(x)):
   do_this
   continue # skip to the next loop
   break # exit the for loop
+
+for arg1, arg2 in zip(args1, args2):
+  ...
+
+for index, arg in enumerate(args):
+  ...
+
 ```
 
 # Datetime
+[strftime cheatsheet](https://strftime.org/)
 ```python
 import datetime
 import pytz
@@ -42,6 +52,9 @@ dt.minute
 dt.date() # return object
 dt.time()
 dt.strftime("%Y-%m-%d %H:%M") # return string
+datetime.strptime("20091031", "%Y%m%d") # read in datetime
+
+now = datetime.now()
 
 # timezone
 tz = pytz.timezone('Asia/Kolkata')
@@ -55,14 +68,13 @@ pytz.common_timezones
 # US/Pacific
 # US/Eastern
 
-# read in datetime
-datetime.strptime("20091031", "%Y%m%d")
-
-# add 90 days
+# add 90 days and an hour
 obj + datetime.timedelta(days=90, hours=1)
 
+# pandas
+pd.to_datetime(str_dates)
+
 ```
-- [Python strftime cheatsheet](https://strftime.org/)
 
 # Data Types
 
@@ -431,3 +443,4 @@ __var__ # reserved for special use
 - Select everything within the current bracket (hit twice): ⎇ + ⇧ + →
 - Comment out the current line: ^ + /
 - Indent lines inward or outward: ^ + [ or ]
+- Navigate backwards: Alt + LeftArrow

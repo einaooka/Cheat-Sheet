@@ -4,6 +4,8 @@
 - [python-operators-and-booleans/](https://writeblocked.org/resources/python_cheat_sheet.pdf)
 - [string manipulation](https://github.com/wilfredinni/python-cheatsheet/blob/master/docs/cheatsheet/manipulating-strings.md)
 
+- [vscode shortcutc](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
+
 ```python
 
 # Comprehension

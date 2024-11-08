@@ -40,6 +40,11 @@ for arg1, arg2 in zip(args1, args2):
 for index, arg in enumerate(args):
   ...
 
+# regular expressions
+import re
+re.findall(pattern, txt) # returns a list of all matches
+re.search(pattern, txt) # returns a match
+
 ```
 
 # Datetime

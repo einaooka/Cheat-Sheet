@@ -6,6 +6,26 @@
 
 - [vscode shortcutc](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
 
+```
+# Create a virtual environment
+python -m venv myenv
+# Activate the virtual environment
+source myenv/bin/activate  # On Unix or MacOS
+myenv\Scripts\activate  # On Windows
+# Deactivate the virtual environment
+deactivate
+
+# Install a package
+pip install package_name
+# List installed packages
+pip list
+# Create requirements.txt
+pip freeze > requirements.txt
+# Install packages from requirements.txt
+pip install -r requirements.txt
+```
+
+
 ```python
 
 # Comprehension
@@ -121,6 +141,13 @@ st1.intersection(st2); st1 & st2
 st1.difference(st2) # elements in st1 that are not in st2
 st1.issubset(st2)
 
+from enum import Enum
+class Color(Enum):
+    RED = 1
+    GREEN = 2
+    BLUE = 3
+print(Color.RED)
+
 ```
 
 # NumPy
@@ -200,6 +227,7 @@ df.reindex(columns = [...])
 df.index.is_unique
 df.index.name = "item"
 df.columns.name = "item"
+srs.value_counts()
 
 # categories (factors)
 df[col1] = df[col1].astype('category')
@@ -271,6 +299,8 @@ pd.read_sql(qry)
 
 ## pandas data wrangling
 ```python
+df.dtypes
+df.convert_dtypes()
 np.nan
 df.dropna(axis = "index") # drops rows with any NA
 df.fillna(0)
@@ -278,6 +308,7 @@ df.fillna({col1: 0.5, col2: 0})
 df.fillna(method="ffill") # For backward-fill, "bfill"
 df.replace(-999, na.nan)
 df.replace({-999: np.nan, -1000: 0})
+df.filter(like='Temp', axis=1)
 
 df.duplicated(0
 df.drop_duplicates(subset=["col1"])
@@ -308,6 +339,10 @@ pd.concat([df1, df2], ignore_index=True)
 
 df.swaplevel("key1", "key2")
 df.sort_index(level=1)
+
+# map example
+fahrenheit = list(map(lambda c: (c * 9/5) + 32, celsius))
+sums = list(map(lambda x, y: x + y, a, b))
 ```
 
 ## pandas aggregation

@@ -1,11 +1,4 @@
-
-
-# Basics
-- [python-operators-and-booleans/](https://writeblocked.org/resources/python_cheat_sheet.pdf)
-- [string manipulation](https://github.com/wilfredinni/python-cheatsheet/blob/master/docs/cheatsheet/manipulating-strings.md)
-
-- [vscode shortcutc](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
-
+# setting env
 ```
 # Create a virtual environment
 python -m venv myenv
@@ -25,8 +18,20 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
+# Basics
+- [python-operators-and-booleans/](https://writeblocked.org/resources/python_cheat_sheet.pdf)
+- [string manipulation](https://github.com/wilfredinni/python-cheatsheet/blob/master/docs/cheatsheet/manipulating-strings.md)
+
+- [vscode shortcutc](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
 
 ```python
+
+# f string
+print(f"Formatted value: {value:.2f}")
+info = f"""
+Name: {name}
+Age: {age}
+"""
 
 # Comprehension
 [expr for value in collections if condition] # list

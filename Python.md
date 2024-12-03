@@ -77,6 +77,20 @@ re.search(pattern, txt) # returns a match
 ```python
 import datetime
 import pytz
+from pandas.tseries.offsets import Day, MonthEnd
+
+# Date range sequence
+pd.date_range(start='1/1/2018', end='1/08/2018')
+pd.date_range("2012-01-01 00:10", periods=10, tz="UTC")
+pd.date_range(start='2000-1-1', periods=5, freq="5min")
+
+ts.truncate(after="2011-01-09")
+ts.resample("D")
+
+now + MonthEnd(2)
+now + 3 * Day()
+
+pd.period_range("2000-1-1", "2000-6-30", freq="M")
 
 dt = datetime(2024, 7, 17, 0, 0, 0)
 dt.day     # return integer
@@ -93,6 +107,7 @@ tz = pytz.timezone('Asia/Kolkata')
 obj = tz.localize(dt)
 new_tz = pytz.timezone('America/New_York')
 obj.astimezone(new_tz)
+ts.tz_convert(tz)
 
 # list of time zones
 pytz.common_timezones

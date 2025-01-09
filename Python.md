@@ -75,6 +75,12 @@ re.search(pattern, txt) # returns a match
 # Datetime
 [strftime cheatsheet](https://strftime.org/)
 ```python
+
+# format datetime series with timezone from Date, HE and tz
+df['DateTime'] = df['Date'].astype(str) + ' ' + (df_ref['HE']-1).astype(str) + ':00:00'
+df['DateTime'] = pd.to_datetime(df['DateTime'], format='%Y-%m-%d %H:%M:%S').dt.tz_localize(tz, ambiguous="NaT", nonexistent="NaT")
+df['DateTime'] = df['DateTime'] + pd.Timedelta(hours=1)
+
 import datetime
 import pytz
 from pandas.tseries.offsets import Day, MonthEnd

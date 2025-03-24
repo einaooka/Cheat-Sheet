@@ -415,37 +415,22 @@ df.pivot_table(index=["col1", "col2"], columns='col3', values=["col4", "col5"], 
 ```python
 import matplotlib.pyplot as plt
 
-plt.rc("figure", figsize=(10,7)) # global plot configurations
+# global plot configurations
+plt.rc("figure", figsize=(10,7)) 
 
-# figure is the container of axes. Axes are individual plots within figure. 
-fig = plt.figure() # start a new plot without showing it
-ax = fig.add_subplot()
-ax.plot(x, color, linestyle, label)
-ax.legend()
-ax.setxlim(vmin, vmax)
-ax.set(title, xlabel)
-ax.text(x,y, label, family="monospace", fontsize=10)
+# multiple plot layout
+nplot = 3
+fig, ax = plt.subplots(nplot, 1, figsize=(20, 2*nplot)) # figure is the container of axes. Axes are individual plots within figure. 
+idx = 0
+ax[idx].plot(xxx, label='x')
+ax[idx].plot(yyy, label='y')
+ax[idx].legend(loc='upper right')
+ax[idx].set_ylabel('ylab')
 
-x = np.random.standard_normal(1000).cumsum()
-fig = plt.figure()
-ax1 = fig.add_subplot(2,2,1) # 2 by 2 layout, 1st slot
-ax1.plot(x)
-ax2 = fig.add_subplot(2,2,2) # 2nd slot
-ax2.hist(x, bins=20, color='k', alpha=0.3) # alpha is transparency
-ax3 = fig.add_subplot(2,2,3) # 3rd slot
-ax3.scatter(np.arange(30), np.arange(30) + 3 * np.random.randn(30))
-
-# A 2 by 2 figure without spacing in between
-fig, axes = plt.subplots(2, 2, sharex = True, sharey = True) 
-for i in range(2):
-    for j in range(2):
-        axes[i, j].hist(np.random.randn(500), bins=50, color='k', alpha=0.5)
+# Add spacing in between
 fig.subplots_adjust(wspace=0, hspace=0) # adjust the space between the plots
 
 fig.savefig("fig.pdf", dpi)
-
-# Show all figures at once 
-plt.show()
 ```
 ## data frame plotting
 [seaborn gallery](https://seaborn.pydata.org/examples/index.html)
